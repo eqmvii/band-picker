@@ -1,1 +1,3 @@
-console.log("Linked JS linked!")
+$(document).ready(() => {
+    console.log(`document loaded; JS linked!`);
+});

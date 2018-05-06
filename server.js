@@ -2,9 +2,9 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var express_handlebars = require("express-handlebars");
 
-var db = require("./models");
 // var Users = require("./models/user.js");
 
+var db = require("./models");
 
 
 //
@@ -27,17 +27,10 @@ app.set("view engine", "handlebars");
 //
 // ROUTES
 //
+
 app.use(express.static('public'))
 
-app.get("/", (req, res) => {
-    res.render("index", { name: "Eric" });
-});
-
-app.get("/users", (req, res) => {
-    db.User.findAll({}).then(function (results) {
-        res.json(results);
-    });
-});
+require("./routes/apiRoutes.js")(app);
 
 
 

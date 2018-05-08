@@ -7,10 +7,6 @@ module.exports = function (app) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
-    app.get("/", (req, res) => {
-        res.render("index", { name: "Eric" });
-    });
-
     app.get("/api/users", (req, res) => {
         db.User.findAll({}).then(function (results) {
             res.json(results);

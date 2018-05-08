@@ -28,6 +28,7 @@ app.set("view engine", "handlebars");
 app.use(express.static('public'))
 
 require("./routes/apiRoutes.js")(app);
+require("./routes/htmlRoutes.js")(app);
 
 
 

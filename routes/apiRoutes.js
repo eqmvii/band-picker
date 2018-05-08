@@ -23,7 +23,18 @@ module.exports = function (app) {
             console.log(newUser);
             res.redirect("/");
         });
-    })
+    });
+
+    app.delete("/api/users/all", (req, res) => {
+        db.User.destroy({
+            where: {},
+            truncate: true
+        }).then(function (response) {
+            console.log("Tried to delete everything");
+            console.log(response);
+            res.end(response);
+        });
+    });
 
 
 };

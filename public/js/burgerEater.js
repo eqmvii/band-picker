@@ -12,10 +12,12 @@ $(document).ready(() => {
         });
     });
 
-    $("#delete-one").on("click", function () {
-        console.log("OHHH YOU CLICKED DELETE JUST THE ONE");
+    // listen for clicks on any user's delete button
+    $("body").on("click", ".js-delete-one-user", function () {
+        var toDelete = parseInt($(this).attr("data-js"), 10);
+        console.log(`OHHH YOU CLICKED DELETE ${toDelete}`);
         $.ajax({
-            url: "/api/users/1",
+            url: `/api/users/${toDelete}`,
             method: "DELETE"
         }).then(function (data) {
             console.log("RESPONSE RECEIVED");
@@ -23,12 +25,19 @@ $(document).ready(() => {
         });
     });
 
-    $("body").on("click", ".delete-one-todo", function () {
-        var toDelete = parseInt($(this).attr("data-js"), 10);
-        console.log(`OHHH YOU CLICKED DELETE ${toDelete}`);
+    // listen for clicks on any user's update button
+    $("body").on("click", ".js-update-one-user", function () {
+        var toUpdate = parseInt($(this).attr("data-js"), 10);
+        var nuEmail = $(`#edit-email-${toUpdate}`).val().trim();
+        var nuPassword = $(`#edit-password-${toUpdate}`).val().trim();
+        console.log(`OHHH YOU CLICKED UPDATE ${toUpdate}`);
         $.ajax({
-            url: `/api/users/${toDelete}`,
-            method: "DELETE"
+            url: `/api/users/${toUpdate}`,
+            method: "PUT",
+            data: {
+                email: nuEmail,
+                password: nuPassword
+            }
         }).then(function (data) {
             console.log("RESPONSE RECEIVED");
             location.reload();

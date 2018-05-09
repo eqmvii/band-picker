@@ -25,6 +25,27 @@ module.exports = function (app) {
         });
     });
 
+    app.put("/api/users/:id", (req, res) => {
+        var idToUpdate = parseInt(req.params.id, 10);
+        console.log(`PUT RECEIVED AT ${idToUpdate}`);
+        console.log(req.body.email);
+        console.log(req.body.password);
+        db.User.update(
+            {
+                email: req.body.email,
+                password: req.body.password
+              }, {
+                where: {
+                  id: idToUpdate
+                }
+            }
+        ).then(function (updatedUser) {
+            console.log("updated user");
+            console.log(updatedUser);
+            res.end();
+        });
+    });
+
     app.delete("/api/users/all", (req, res) => {
         db.User.destroy({
             where: {},

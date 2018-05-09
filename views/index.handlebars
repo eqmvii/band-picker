@@ -7,10 +7,17 @@
 <hr />
 
   {{#each users}}
-    <li>{{this.email}}, password: {{this.password}} <button id="{{this.id}}" data-js="{{this.id}}" class="delete-one-todo">DELETE ME</button></li>
+    <p><strong>USER: </strong>Email: {{this.email}}, password: {{this.password}} <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">DELETE ME</button></li></p>
+    <p>
+        Edit email:<input id="edit-email-{{this.id}}" type="text" name="email" value="{{this.email}}"></input>
+        Edit Password: <input id="edit-password-{{this.id}}" type="text" name="password" value="{{this.password}}"></input>
+        <button id="update{{this.id}}" data-js="{{this.id}}" class="js-update-one-user">Update</button>
+    </p>
+
+    <hr />
   {{/each}}
 
-<hr />
+
 
 <form action="/api/users" method="POST">
     <h3>Add a user</h3>
@@ -21,6 +28,5 @@
 
 <hr />
 
-<button id="delete-all">Destroy Everything</button>
+<button id="delete-all">Delete all users</button>
 
-<button id="delete-one">Destroy The First Item, like literally with id 1</button>

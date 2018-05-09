@@ -36,5 +36,19 @@ module.exports = function (app) {
         });
     });
 
+    app.delete("/api/users/:id", (req, res) => {
+        var idToDelete = parseInt(req.params.id, 10);
+        console.log(`idToDelete: ${idToDelete}`);
+        db.User.destroy({
+            where: {
+                id: idToDelete
+            }
+        }).then(function (response) {
+            console.log("Tried to delete just the one...");
+            console.log(response);
+            res.end();
+        });
+    });
+
 
 };

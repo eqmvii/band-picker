@@ -4,6 +4,14 @@
 
 <p><a href="/api/users">API test</a></p>
 
+<hr />
+
+  {{#each users}}
+    <li>{{this.email}}, password: {{this.password}} <button id="{{this.id}}" data-js="{{this.id}}" class="delete-one-todo">DELETE ME</button></li>
+  {{/each}}
+
+<hr />
+
 <form action="/api/users" method="POST">
     <h3>Add a user</h3>
     <p>email:<input type="text" name="email"></input></p>
@@ -14,3 +22,5 @@
 <hr />
 
 <button id="delete-all">Destroy Everything</button>
+
+<button id="delete-one">Destroy The First Item, like literally with id 1</button>

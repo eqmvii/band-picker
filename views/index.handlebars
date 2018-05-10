@@ -7,8 +7,12 @@
 <hr />
 
   {{#each users}}
-    <p><strong>USER: </strong>Email: {{this.email}}, password: {{this.password}} <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">DELETE ME</button></li></p>
     <p>
+      <strong>USER: </strong>Email: {{this.email}}, password: {{this.password}}
+      <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">DELETE ME</button>
+      <button id="edit-button-{{thid.id}}" class="js-edit-button" data-js="{{this.id}}">Edit</button>
+    </p>
+    <p id="edit-form-{{this.id}}" class="edit-form">
         Edit email:<input id="edit-email-{{this.id}}" type="text" name="email" value="{{this.email}}"></input>
         Edit Password: <input id="edit-password-{{this.id}}" type="text" name="password" value="{{this.password}}"></input>
         <button id="update{{this.id}}" data-js="{{this.id}}" class="js-update-one-user">Update</button>

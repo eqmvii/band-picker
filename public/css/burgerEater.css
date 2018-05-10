@@ -1,3 +1,8 @@
 body {
     color: blue;
 }
+
+.edit-form {
+    display: none;
+    transition: linear 2s;
+}

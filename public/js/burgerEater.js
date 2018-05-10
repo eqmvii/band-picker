@@ -44,5 +44,11 @@ $(document).ready(() => {
         });
     });
 
+    $("body").on("click", ".js-edit-button", function () {
+        var toUpdate = $(this).attr("data-js");
+        console.log(`OHHH YOU CLICKED EDIT ${toUpdate}`);
+        $(`#edit-form-${toUpdate}`).toggle();
+    });
+
 
 });

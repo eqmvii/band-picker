@@ -3,7 +3,7 @@
     <p><a href="/profile">View Your Profile</a></p>
     <p><a href="/logout">Log Out</a></p>
   {{else}}
-    <h3 style="color: red">You are not logged in</h3>
+    <h3 style="color: red">You are not cheese in</h3>
     <a href="/login">Log In</a>
   {{/if}}
 
@@ -14,7 +14,7 @@
   {{#each users}}
     <p>
       <strong>ID: </strong> {{this.id}} | <strong>User: </strong>{{this.username}} | <strong>password: </strong>{{this.password}} | <strong>Created: </strong> {{this.createdAt}}
-      <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">DELETE ME</button>
+      <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">Delete</button>
       <button id="edit-button-{{thid.id}}" class="js-edit-button" data-js="{{this.id}}">Edit</button>
     </p>
     <p id="edit-form-{{this.id}}" class="edit-form">
@@ -38,8 +38,6 @@
 <hr />
 
 <p><button id="delete-all">Delete all users</button></p>
-
-<p><a href="/api/users">API test</a></p>
 
 <script src="js/app.js" type="text/javascript"></script>
 

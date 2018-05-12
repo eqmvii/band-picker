@@ -1,6 +1,7 @@
 // Server
 var express = require("express");
 var express_handlebars = require("express-handlebars");
+var bodyParser = require('body-parser');
 // Auth
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
@@ -16,14 +17,11 @@ var app = express();
 
 const PORT = process.env.PORT || 4000;
 
-// Use application-level middleware for common functionality, including
-// logging, parsing, and session handling.
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-// TODO: idk maybe a better secret
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false })); // TODO: idk maybe a better secret
 app.engine("handlebars", express_handlebars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
@@ -39,7 +37,7 @@ passport.use(new Strategy(
             console.log(`found: `);
             console.log(user);
             if (!user) { return cb(null, false); }
-            if (user.password != password) { return cb(null, false); }
+            if (user.password !== password) { return cb(null, false); }
             return cb(null, user);
         });
     }));
@@ -61,24 +59,6 @@ passport.deserializeUser(function (id, cb) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/login',
-    passport.authenticate('local', { failureRedirect: '/error' }),
-    function (req, res) {
-        console.log("Logged in!");
-        res.redirect('/');
-    });
-
-app.get('/logout',
-    function (req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-
-app.get('/profile',
-    require('connect-ensure-login').ensureLoggedIn('/login'),
-    function (req, res) {
-        res.render('profile', { user: req.user });
-    });
 
 //
 // ROUTES
@@ -90,9 +70,8 @@ require("./routes/apiRoutes.js")(app);
 require("./routes/htmlRoutes.js")(app);
 
 
-
 //
-// SERVER
+// START SERVER
 //
 
 db.sequelize.sync().then(function () {

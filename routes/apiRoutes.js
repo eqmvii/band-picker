@@ -1,17 +1,16 @@
 var db = require("../models");
-var bodyParser = require("body-parser");
-
+var passport = require('passport');
 
 module.exports = function (app) {
 
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
-
-    app.get("/api/users", (req, res) => {
-        db.User.findAll({}).then(function (results) {
-            res.json(results);
+    app.get("/api/users",
+        require('connect-ensure-login').ensureLoggedIn('/login'),
+        function (req, res) {
+            console.log("api call");
+            db.User.findAll({}).then(function (results) {
+                res.json(results);
+            });
         });
-    });
 
     // currently wired up to expect POST directly from a form
     app.post("/api/users", (req, res) => {
@@ -34,9 +33,9 @@ module.exports = function (app) {
             {
                 username: req.body.username,
                 password: req.body.password
-              }, {
+            }, {
                 where: {
-                  id: idToUpdate
+                    id: idToUpdate
                 }
             }
         ).then(function (updatedUser) {

@@ -16,7 +16,7 @@ module.exports = function (app) {
     // currently wired up to expect POST directly from a form
     app.post("/api/users", (req, res) => {
         db.User.create({
-            email: req.body.email,
+            username: req.body.username,
             password: req.body.password
         }).then(function (newUser) {
             console.log("New user!");
@@ -28,11 +28,11 @@ module.exports = function (app) {
     app.put("/api/users/:id", (req, res) => {
         var idToUpdate = parseInt(req.params.id, 10);
         console.log(`PUT RECEIVED AT ${idToUpdate}`);
-        console.log(req.body.email);
+        console.log(req.body.username);
         console.log(req.body.password);
         db.User.update(
             {
-                email: req.body.email,
+                username: req.body.username,
                 password: req.body.password
               }, {
                 where: {

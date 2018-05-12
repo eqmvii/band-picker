@@ -28,14 +28,14 @@ $(document).ready(() => {
     // listen for clicks on any user's update button
     $("body").on("click", ".js-update-one-user", function () {
         var toUpdate = parseInt($(this).attr("data-js"), 10);
-        var nuEmail = $(`#edit-email-${toUpdate}`).val().trim();
+        var nuUsername = $(`#edit-username-${toUpdate}`).val().trim();
         var nuPassword = $(`#edit-password-${toUpdate}`).val().trim();
         console.log(`OHHH YOU CLICKED UPDATE ${toUpdate}`);
         $.ajax({
             url: `/api/users/${toUpdate}`,
             method: "PUT",
             data: {
-                email: nuEmail,
+                username: nuUsername,
                 password: nuPassword
             }
         }).then(function (data) {

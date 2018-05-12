@@ -10,7 +10,7 @@
 
   {{#each users}}
     <p>
-      <strong>USER: </strong>Username: {{this.username}}, password: {{this.password}}
+      <strong>ID: </strong> {{this.id}} | <strong>User: </strong>{{this.username}} | <strong>password: </strong>{{this.password}} | <strong>Created: </strong> {{this.createdAt}}
       <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">DELETE ME</button>
       <button id="edit-button-{{thid.id}}" class="js-edit-button" data-js="{{this.id}}">Edit</button>
     </p>

@@ -1,5 +1,4 @@
 // Server
-var bodyParser = require("body-parser");
 var express = require("express");
 var express_handlebars = require("express-handlebars");
 // Auth
@@ -17,6 +16,13 @@ var app = express();
 
 const PORT = process.env.PORT || 4000;
 
+// Use application-level middleware for common functionality, including
+// logging, parsing, and session handling.
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+// TODO: idk maybe a better secret
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 
 app.engine("handlebars", express_handlebars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -28,7 +34,10 @@ app.set("view engine", "handlebars");
 
 passport.use(new Strategy(
     function (username, password, cb) {
+        console.log(`checking ${username} and ${password}...`);
         db.User.findOne({ where: { username: username } }).then(user => {
+            console.log(`found: `);
+            console.log(user);
             if (!user) { return cb(null, false); }
             if (user.password != password) { return cb(null, false); }
             return cb(null, user);
@@ -36,10 +45,14 @@ passport.use(new Strategy(
     }));
 
 passport.serializeUser(function (user, cb) {
+    console.log(`serialize called with: `);
+    console.log(user);
     cb(null, user.id);
 });
 
 passport.deserializeUser(function (id, cb) {
+    console.log(`deserialize called with :`);
+    console.log(id);
     db.User.findOne({ where: { id: id } }).then(user => {
         cb(null, user);
     })
@@ -47,6 +60,25 @@ passport.deserializeUser(function (id, cb) {
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.post('/login',
+    passport.authenticate('local', { failureRedirect: '/error' }),
+    function (req, res) {
+        console.log("Logged in!");
+        res.redirect('/');
+    });
+
+app.get('/logout',
+    function (req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+app.get('/profile',
+    require('connect-ensure-login').ensureLoggedIn('/login'),
+    function (req, res) {
+        res.render('profile', { user: req.user });
+    });
 
 //
 // ROUTES

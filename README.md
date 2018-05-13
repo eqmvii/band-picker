@@ -15,3 +15,7 @@ Start with nodemon: `npm run develop`
 # deployment notes
 
 [Deploymeny Notes](deploymentNotes.md)
+
+# burger-eater?
+
+This was originally based on an 'eat da burger' bootcamp exercise but took on a life of its own

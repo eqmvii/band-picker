@@ -3,6 +3,10 @@ var passport = require('passport');
 
 module.exports = function (app) {
 
+    //
+    // USERS
+    //
+
     app.get("/api/users",
         require('connect-ensure-login').ensureLoggedIn('/login'),
         function (req, res) {
@@ -70,5 +74,17 @@ module.exports = function (app) {
         });
     });
 
+    //
+    // BANDS
+    //
+
+    app.get("/api/bands",
+    require('connect-ensure-login').ensureLoggedIn('/login'),
+    function (req, res) {
+        console.log("api call");
+        db.Band.findAll({}).then(function (results) {
+            res.json(results);
+        });
+    });
 
 };

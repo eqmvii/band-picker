@@ -6,6 +6,8 @@ A simple app built to learn/practice sequelize, MySQL, handlebars, express, pass
 
 Start with nodemon: `npm run develop`
 
+Start generally: `node server.js` or `npm start`
+
 # sequelize process
 
 1. Be sure sequelize is globally installed: `sequelize init:config & sequelize init:models`
@@ -15,3 +17,5 @@ Start with nodemon: `npm run develop`
 # deployment notes
 
 [Deploymeny Notes](deploymentNotes.md)
+
+[Model Notes](modelNotes.md)

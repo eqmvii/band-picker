@@ -18,4 +18,10 @@ Start generally: `node server.js` or `npm start`
 
 [Deploymeny Notes](deploymentNotes.md)
 
+<<<<<<< HEAD
 [Model Notes](modelNotes.md)
+=======
+# burger-eater?
+
+This was originally based on an 'eat da burger' bootcamp exercise but took on a life of its own
+>>>>>>> 979f2c8fef6ff344285d5c1ecb33fc9968ab8ce3

@@ -5,6 +5,7 @@ Creating the app and provisioning the jawsdb for MySQL
 1. heroku create [project name]
 2. heroku addons:create jawsdb
 3. Get the secret URL: heroku config:get JAWSDB_URL
+4. Important: install sequelize-cli locally to make it work with remote migrations
 
 ## Run migrations after deployment:
 

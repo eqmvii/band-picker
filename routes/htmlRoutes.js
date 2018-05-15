@@ -35,4 +35,14 @@ module.exports = function (app) {
         res.render("error");
     });
 
+    //
+    // BANDS
+    //
+
+    app.get("/bands", (req, res) => {
+        db.Band.findAll({}).then(function (results) {
+            res.render("bands/all", { bands: results });
+        });
+    });
+
 };

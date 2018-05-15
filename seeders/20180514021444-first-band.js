@@ -9,7 +9,8 @@ module.exports = {
       stage: 'fake stage',
       time: new Date,
       createdAt: new Date,
-      updatedAt: new Date
+      updatedAt: new Date,
+      day: "Tuesday"
     }], {});
 },
 

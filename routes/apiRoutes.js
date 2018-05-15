@@ -49,17 +49,6 @@ module.exports = function (app) {
         });
     });
 
-    app.delete("/api/users/all", (req, res) => {
-        db.User.destroy({
-            where: {},
-            truncate: true
-        }).then(function (response) {
-            console.log("Tried to delete everything");
-            console.log(response);
-            res.end(response);
-        });
-    });
-
     app.delete("/api/users/:id", (req, res) => {
         var idToDelete = parseInt(req.params.id, 10);
         console.log(`idToDelete: ${idToDelete}`);
@@ -79,12 +68,36 @@ module.exports = function (app) {
     //
 
     app.get("/api/bands",
-    require('connect-ensure-login').ensureLoggedIn('/login'),
-    function (req, res) {
-        console.log("api call");
-        db.Band.findAll({}).then(function (results) {
-            res.json(results);
+        require('connect-ensure-login').ensureLoggedIn('/login'),
+        function (req, res) {
+            console.log("api call");
+            db.Band.findAll({}).then(function (results) {
+                res.json(results);
+            });
         });
-    });
+
+    //
+    // ALL
+    //
+
+    // TODO: Add administrative authentication requirement?
+    app.delete("/api/all",
+        require('connect-ensure-login').ensureLoggedIn('/login'),
+        (req, res) => {
+            db.User.destroy({
+                where: {},
+                truncate: true
+            }).then(function (response) {
+                db.Band.destroy({
+                    where: {},
+                    truncate: true
+                }).then(function (response) {
+                    console.log("Tried to delete everything");
+                    console.log(response);
+                    res.end(response);
+                })
+            });
+        });
+
 
 };

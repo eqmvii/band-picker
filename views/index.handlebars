@@ -7,9 +7,20 @@
     <a href="/login">Log In</a>
   {{/if}}
 
-
-
 <hr />
+<h2>Bands:</h2>
+
+  {{#each bands}}
+    <p>
+      <strong>ID: </strong> {{this.id}} |
+      <strong>Name: </strong>{{this.name}} |
+      <strong>Stage: </strong>{{this.stage}} |
+      <strong>Day: </strong> {{this.day}} |
+      <strong>Time: </strong> {{this.time}}
+    <hr />
+  {{/each}}
+
+<h2>Users:</h2>
 
   {{#each users}}
     <p>

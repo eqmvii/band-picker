@@ -21,15 +21,20 @@ module.exports = function (app) {
         });
 
     // currently wired up to expect POST directly from a form
+    // TODO: Make this different and enforce uniqueness
     app.post("/api/users", (req, res) => {
-        db.User.create({
-            username: req.body.username,
-            password: req.body.password
-        }).then(function (newUser) {
-            console.log("New user!");
-            console.log(newUser);
-            res.redirect("/");
-        });
+        if (req.body.username === "admin") {
+            res.redirect("/error");
+        } else {
+            db.User.create({
+                username: req.body.username,
+                password: req.body.password
+            }).then(function (newUser) {
+                console.log("New user!");
+                console.log(newUser);
+                res.redirect("/");
+            });
+        }
     });
 
     app.put("/api/users/:id", (req, res) => {

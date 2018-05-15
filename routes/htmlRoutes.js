@@ -4,10 +4,9 @@ var passport = require('passport');
 module.exports = function (app) {
 
     app.get("/", (req, res) => {
-        db.User.findAll({
-            where: { admin: false }
-        }).then(function (results) {
-            res.render("index", { user: req.user, users: results });
+        Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll( {} ) ])
+        .then(function (results) {
+            res.render("index", { user: req.user, users: results[0], bands: results[1] });
         });
     });
 

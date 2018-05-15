@@ -6,6 +6,8 @@ Migrations:
 
 `sequelize model:generate --name Band --attributes name:string,stage:string,time:date`
 
+`sequelize migration:create --name [name]`
+
 Seeds:
 
 `sequelize seed:generate --name first-band`

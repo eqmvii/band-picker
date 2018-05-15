@@ -14,4 +14,4 @@ Seeds:
 
 `sequelize db:migrate` and `sequelize db:migrate:undo` or `sequelize db:migrate:undo:all`
 
-`sequelize db:seed`
+`sequelize db:seed:all`

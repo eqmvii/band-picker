@@ -11,7 +11,11 @@ module.exports = function (app) {
         require('connect-ensure-login').ensureLoggedIn('/login'),
         function (req, res) {
             console.log("api call");
-            db.User.findAll({}).then(function (results) {
+            db.User.findAll({
+                where: { admin: false }
+            }).then(function (results) {
+                console.log(`ran an all, got: `);
+                console.log(results);
                 res.json(results);
             });
         });
@@ -85,8 +89,9 @@ module.exports = function (app) {
         require('connect-ensure-login').ensureLoggedIn('/login'),
         (req, res) => {
             db.User.destroy({
-                where: {},
-                truncate: true
+                where: {
+                    admin: false
+                }
             }).then(function (response) {
                 db.Band.destroy({
                     where: {},

@@ -4,7 +4,9 @@ var passport = require('passport');
 module.exports = function (app) {
 
     app.get("/", (req, res) => {
-        db.User.findAll({}).then(function (results) {
+        db.User.findAll({
+            where: { admin: false }
+        }).then(function (results) {
             res.render("index", { user: req.user, users: results });
         });
     });

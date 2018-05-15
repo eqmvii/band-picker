@@ -12,6 +12,10 @@ Seeds:
 
 `sequelize seed:generate --name first-band`
 
+`sequelize db:seed:undo:all`
+
+`sequelize db:seed:undo:`
+
 ## Running
 
 `sequelize db:migrate` and `sequelize db:migrate:undo` or `sequelize db:migrate:undo:all`

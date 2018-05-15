@@ -85,6 +85,31 @@ module.exports = function (app) {
             });
         });
 
+    // currently wired up to expect POST directly from a form
+    app.post("/api/bands", (req, res) => {
+        console.log(req.body);
+        var dateSwitch = {
+            Thursday: 1,
+            Friday: 2,
+            Saturday: 3,
+            Sunday: 4
+        };
+        console.log(dateSwitch[req.body.day]);
+        var dayCalced = 6 + dateSwitch[req.body.day];
+        console.log(`dayCalced: ${dayCalced}; time: ${parseInt(req.body.time)}`);
+        db.Band.create({
+            name: req.body.name,
+            stage: req.body.stage,
+            time: new Date(2018, 05, dayCalced, parseInt(req.body.time)),
+            day: req.body.day
+        }).then(function (newBand) {
+            console.log("New band!");
+            console.log(newBand);
+            res.redirect("/");
+        });
+    });
+
+
     //
     // ALL
     //

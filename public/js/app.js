@@ -1,17 +1,6 @@
 $(document).ready(() => {
     console.log(`document loaded; JS linked!`);
 
-    $("#delete-all").on("click", function () {
-        console.log("OHHH YOU CLICKED DELETE ALL");
-        $.ajax({
-            url: "/api/users/all",
-            method: "DELETE"
-        }).then(function (data) {
-            console.log("RESPONSE RECEIVED");
-            location.reload();
-        });
-    });
-
     // listen for clicks on any user's delete button
     $("body").on("click", ".js-delete-one-user", function () {
         var toDelete = parseInt($(this).attr("data-js"), 10);

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     day: DataTypes.STRING
   }, {});
   Band.associate = function(models) {
-    // associations can be defined here
+    Band.belongsToMany(models.User, {through: 'BandUser'});
   };
   return Band;
 };

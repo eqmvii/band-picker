@@ -4,54 +4,6 @@ var passport = require('passport');
 module.exports = function (app) {
 
     //
-    // SEQUELIZE MANY-TO-MANY TEST ROUTES
-    //
-
-    app.get('/api/test/addmanytomany', function (req, res) {
-        console.log("Here you are!");
-        testObj = {
-            name: "hello",
-            testObj: true,
-            hmm: [1, 2, "hello", 3, [0, 1, 2], "dog"],
-            wellThen: 0
-        }
-
-        db.User.findOne({ where: { admin: true } })
-        .then(function (results) {
-            console.log(results.get({ plain: true }));
-            var admin = results;
-            db.Band.findOne({ where: { name: 'adminTestBandTwo' } })
-            .then(function (newResults) {
-                if (newResults) {
-                    console.log(newResults.get({ plain: true }));
-                }
-                var band = newResults;
-                admin.addBand(band)
-                .then(function(results){
-                    console.log("woah!");
-                    console.log(results);
-                    res.json(results);
-                })
-            })
-        });
-    });
-
-    app.get('/api/test/getmanytomany', function (req, res) {
-        db.User.findOne({ where: { admin: true } })
-        .then(function (results) {
-            console.log(results.get({ plain: true }));
-            var admin = results;
-            admin.getBands().then(function(results){
-                console.log("Admin got: ");
-                // console.log(results);
-                res.json(results);
-            })
-        });
-
-    });
-
-
-    //
     // USERS
     //
 
@@ -158,9 +110,9 @@ module.exports = function (app) {
     });
 
 
-    //
-    // ALL
-    //
+//
+// ALL
+//
 
     // TODO: Add administrative authentication requirement?
     app.delete("/api/all",
@@ -182,5 +134,41 @@ module.exports = function (app) {
             });
         });
 
+//
+// SEQUELIZE MANY-TO-MANY TEST ROUTES
+//
 
+    app.get('/api/test/addmanytomany', function (req, res) {
+        console.log("Here you are!");
+        testObj = {
+            name: "hello",
+            testObj: true,
+            hmm: [1, 2, "hello", 3, [0, 1, 2], "dog"],
+            wellThen: 0
+        }
+
+        var admin = db.User.findOne({ where: { admin: true } });
+        var band =  db.Band.findOne({ where: { name: 'adminTestBandTwo' } });
+        Promise.all([admin, band])
+        .then((results) => {
+            console.log("woah!");
+            console.log(results);
+            res.json(results);
+        })
+    });
+
+    app.get('/api/test/getmanytomany', function (req, res) {
+        db.User.findOne({ where: { admin: true } })
+        .then(function (results) {
+            console.log(results.get({ plain: true }));
+            var admin = results;
+            return admin.getBands(); // Note to self: return a promise for sane-then-chains
+            })
+        .then(function(results){
+            console.log("Admin got with better nesting: ");
+            // console.log(results);
+            res.json(results);
+        })
+
+    });
 };

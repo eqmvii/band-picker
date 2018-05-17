@@ -18,11 +18,30 @@
 	<div class="ui menu">
 		<div class="ui container">
 			<a href="/" class="header item">
-				<img class="logo" src="images/logo.png"> &nbsp;&nbsp; Band Picker
+				{{!-- <img class="logo" src="images/logo.png"> &nbsp;&nbsp; Band Picker --}}
+				<h2 class="ui header blue">
+  <i class="headphones icon"></i>
+  <div class="content">
+    <div class="sub header">Band Picker</div>
+  </div>
+</h2>
 			</a>
-			<a href="/" class="item">Home</a>
+			<a href="/" class="item">
+				<i class="home icon"></i> Home</a>
+			{{#if user}}
+			<a class="item" href="/profile">
+				<i class="user circle icon"></i> {{user.username}}</a>
+			<a class="item" href="/logout">
+				<i class="window close icon"></i> Logout</a>
+
+			{{else}}
+			<a class="item" href="/login">
+				<i class="angle right icon"></i> Login</a>
+			{{/if}}
+			<a class="item" href="/bands">
+				<i class="music icon"></i> Bands</a>
 			<div class="ui simple dropdown item">
-				Other Places
+				Fake Dropdown
 				<i class="dropdown icon"></i>
 				<div class="menu">
 					<a class="item" href="/login">Login</a>
@@ -51,6 +70,7 @@
 			<a href="https://github.com/eqmvii">Eric Mancini</a>
 		</p>
 	</div>
+
 </body>
 
 </html>

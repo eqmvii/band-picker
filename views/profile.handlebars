@@ -1,4 +1,4 @@
-<h1>Hello {{ user.username }}!</h1>
+<h1>Hello {{ user.username }}! You are {{user.id}} </h1>
 <p>You are authenticated! You are user #{{user.id}}</div></p>
 <p>You were created at: {{user.createdAt}}</p>
 <p><a href="/api/bands">Bands API test just for you!</a></p>
@@ -19,6 +19,29 @@
 
 
 <hr />
+<h1>All Bands</h1>
+{{#each allBands}}
+<p>
+  <!-- wow that scope thing below is dumb -->
+  <button id="add-band-{{this.id}}" data-js-band="{{this.id}}" data-js-user="{{ ../user.id }}" class="js-add-band">|ADD BAND|</button>
+  <!-- <strong>ID: </strong> {{this.id}} | -->
+  <strong>Name: </strong>{{this.name}} |
+  <strong>Stage: </strong>{{this.stage}} |
+  <strong>Day: </strong> {{this.day}} |
+  <strong>Time: </strong> {{this.time}}
+  <hr />
+{{/each}}
+
+<h1>Your Bands</h1>
+{{#each myBands}}
+<p>
+  <!-- <strong>ID: </strong> {{this.id}} | -->
+  <strong>Name: </strong>{{this.name}} |
+  <strong>Stage: </strong>{{this.stage}} |
+  <strong>Day: </strong> {{this.day}} |
+  <strong>Time: </strong> {{this.time}}
+  <hr />
+{{/each}}
 
 <p><a href="/logout">Log Out</a></p>
 

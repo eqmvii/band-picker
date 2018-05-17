@@ -4,10 +4,10 @@ var passport = require('passport');
 module.exports = function (app) {
 
     app.get("/", (req, res) => {
-        Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll( {} ) ])
-        .then(function (results) {
-            res.render("index", { user: req.user, users: results[0], bands: results[1] });
-        });
+        Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll({})])
+            .then(function (results) {
+                res.render("index", { user: req.user, users: results[0], bands: results[1] });
+            });
     });
 
     app.get("/login", (req, res) => {
@@ -29,7 +29,15 @@ module.exports = function (app) {
     app.get('/profile',
         require('connect-ensure-login').ensureLoggedIn('/login'),
         function (req, res) {
-            res.render('profile', { user: req.user });
+            console.log(" % % % % % % ");
+            console.log(req.user);
+            console.log(" % % % % % % ");
+            var myBands = req.user.getBands();
+            var allBands = db.Band.findAll({});
+            Promise.all([myBands, allBands])
+                .then(function (results) {
+                    res.render("profile", { user: req.user, myBands: results[0], allBands: results[1] });
+                });
         });
 
     app.get("/error", (req, res) => {

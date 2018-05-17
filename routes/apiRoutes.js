@@ -142,6 +142,11 @@ module.exports = function (app) {
 // SEQUELIZE MANY-TO-MANY TEST ROUTES
 //
 
+    app.post("/api/banduser/", function(req, res) {
+        console.log("gotcha");
+        console.log(req.body);
+    });
+
     app.get('/api/test/addmanytomany', function (req, res) {
         console.log("Here you are!");
         testObj = {

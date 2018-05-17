@@ -143,8 +143,19 @@ module.exports = function (app) {
 //
 
     app.post("/api/banduser/", function(req, res) {
-        console.log("gotcha");
-        console.log(req.body);
+        // console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
+        // console.log(req.body);
+        var userToAdd = db.User.findOne({ where: { id: parseInt(req.body.userToAdd, 10) } });
+        var bandToAdd = db.Band.findOne({ where: { id: parseInt(req.body.bandToAdd, 10) } });
+        Promise.all([userToAdd, bandToAdd])
+        .then((results) => {
+            // console.log("got some!");
+            // console.log(results);
+            return results[0].addBand(results[1]);
+        })
+        .then((moreResults) => {
+            res.json(moreResults);
+        })
     });
 
     app.get('/api/test/addmanytomany', function (req, res) {

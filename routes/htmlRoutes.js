@@ -29,9 +29,9 @@ module.exports = function (app) {
     app.get('/profile',
         require('connect-ensure-login').ensureLoggedIn('/login'),
         function (req, res) {
-            console.log(" % % % % % % ");
-            console.log(req.user);
-            console.log(" % % % % % % ");
+            // console.log(" % % % % % % ");
+            // console.log(req.user);
+            // console.log(" % % % % % % ");
             var myBands = req.user.getBands();
             var allBands = db.Band.findAll({});
             Promise.all([myBands, allBands])

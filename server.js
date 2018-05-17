@@ -64,7 +64,7 @@ app.use(passport.session());
 // ROUTES
 //
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 require("./routes/apiRoutes.js")(app);
 require("./routes/htmlRoutes.js")(app);

@@ -158,6 +158,7 @@ module.exports = function (app) {
         })
     });
 
+    // TODO: Fix this this is broken now and doesn't really do anything
     app.get('/api/test/addmanytomany', function (req, res) {
         console.log("Here you are!");
         testObj = {
@@ -171,6 +172,7 @@ module.exports = function (app) {
         var band =  db.Band.findOne({ where: { name: 'adminTestBandTwo' } });
         Promise.all([admin, band])
         .then((results) => {
+            // TODO: Add the bad/user association call where did it go
             console.log("woah!");
             console.log(results);
             res.json(results);

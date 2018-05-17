@@ -4,16 +4,53 @@
 <head>
 	<title>Test App</title>
 	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	<!-- Semantic UI -->
+	<link rel="stylesheet" type="text/css" href="./dist/semantic.min.css">
+	<script src="./dist/semantic.min.js"></script>
 	<!-- custom -->
 	<link rel="stylesheet" type="text/css" href="css/burgerEater.css">
 </head>
 
 <body>
-	{{{ body }}}
-	<hr />
-	<p>Made by <a href="https://github.com/eqmvii">Eric Mancini</a></p>
 
+	<div class="ui menu">
+		<div class="ui container">
+			<a href="/" class="header item">
+				<img class="logo" src="images/logo.png"> &nbsp;&nbsp; Band Picker
+			</a>
+			<a href="/" class="item">Home</a>
+			<div class="ui simple dropdown item">
+				Other Places
+				<i class="dropdown icon"></i>
+				<div class="menu">
+					<a class="item" href="/login">Login</a>
+					<a class="item" href="/bands">Bands</a>
+					<div class="divider"></div>
+					<div class="header">Header Item</div>
+					<div class="item">
+						<i class="dropdown icon"></i>
+						Sub Menu
+						<div class="menu">
+							<a class="item" href="#">Link Item</a>
+							<a class="item" href="#">Link Item</a>
+						</div>
+					</div>
+					<a class="item" href="#">Link Item</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui container">
+
+		{{{ body }}}
+		<hr />
+		<p>Made by
+			<a href="https://github.com/eqmvii">Eric Mancini</a>
+		</p>
+	</div>
 </body>
 
 </html>

@@ -1,6 +1,9 @@
 var db = require("../models");
 var passport = require('passport');
 
+// var Sequelize = require('sequelize');
+const Op = db.Sequelize.Op; // query operators
+
 module.exports = function (app) {
 
     //
@@ -96,11 +99,11 @@ module.exports = function (app) {
         };
         console.log(dateSwitch[req.body.day]);
         var dayCalced = 6 + dateSwitch[req.body.day];
-        console.log(`dayCalced: ${dayCalced}; time: ${parseInt(req.body.time)}`);
+        console.log(`dayCalced: ${dayCalced}; time: ${parseInt(req.body.hours)}:${parseInt(req.body.minutes)}`);
         db.Band.create({
             name: req.body.name,
             stage: req.body.stage,
-            time: new Date(2018, 05, dayCalced, parseInt(req.body.time)),
+            time: new Date(2018, 05, dayCalced, parseInt(req.body.hours), parseInt(req.body.minutes)),
             day: req.body.day
         }).then(function (newBand) {
             console.log("New band!");
@@ -124,12 +127,13 @@ module.exports = function (app) {
                 }
             }).then(function (response) {
                 db.Band.destroy({
-                    where: {},
-                    truncate: true
+                    where: {
+                        id: { [Op.ne]: null }
+                    }
                 }).then(function (response) {
                     console.log("Tried to delete everything");
-                    console.log(response);
-                    res.end(response);
+                    // console.log(response);
+                    res.end();
                 })
             });
         });

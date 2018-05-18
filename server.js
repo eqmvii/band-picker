@@ -8,7 +8,14 @@ var Strategy = require('passport-local').Strategy;
 // Database
 var db = require("./models");
 
+// var express_handlebars = express_handlebars_base.create({
+//     // Specify helpers which are only registered on this instance.
+//     helpers: {
+//         randomStars: function () {  console.log("helper got called"); return "4"; }
+//     }
+// });
 
+console.log(express_handlebars)
 //
 // CONFIG
 //
@@ -24,6 +31,13 @@ app.use(bodyParser.json());
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false })); // TODO: idk maybe a better secret
 app.engine("handlebars", express_handlebars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// TODO: This isn't working or being called at all
+// express_handlebars.registerHelper("randomStars", function () {
+//     console.log("helper got called");
+//     // return Math.floor(Math.random(5) + 1);
+//     return "4";
+// });
 
 
 //

@@ -6,9 +6,18 @@ module.exports = function (app) {
     app.get("/", (req, res) => {
         Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll({})])
             .then(function (results) {
-                res.render("index", { user: req.user, users: results[0], bands: results[1] });
+                res.render("index", { user: req.user, users: results[0], bands: results[1], helpers: {
+                    randomStars: function() {console.log("helper got called"); return "" + Math.floor((Math.random() * 4) + 1);}
+                } });
             });
     });
+
+    // TODO: This isn't working or being called at all
+    // Handlebars.registerHelper("randomStars", function () {
+    //     console.log("helper got called");
+    //     // return Math.floor(Math.random(5) + 1);
+    //     return "4";
+    // });
 
     app.get("/login", (req, res) => {
         res.render("login");

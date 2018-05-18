@@ -55,7 +55,8 @@
       </div>
     </div>
     <div class="extra content">
-      <button id="add-band-{{this.id}}" data-js-band="{{this.id}}" data-js-user="{{ ../user.id }}" class="js-add-band ui button green center">Add Band</button>
+      <button id="add-band-{{this.id}}" data-js-band="{{this.id}}" data-js-user="{{ ../user.id }}" class="js-add-band ui button green center">
+      <i class="icon plus"></i> Add Band</button>
       {{!--
       <button class="ui button red">BAD</button> --}}
 
@@ -88,9 +89,15 @@
       </div>
     </div>
     <div class="extra content">
-      {{!--
-      <button id="add-band-{{this.id}}" data-js-band="{{this.id}}" data-js-user="{{ ../user.id }}" class="js-add-band ui button green center">Add Band</button> --}} {{!--
-      <button class="ui button red">BAD</button> --}}
+      <button
+        id="remove-band-{{this.id}}"
+        data-js-band="{{this.id}}"
+        data-js-user="{{ ../user.id }}"
+        class="js-remove-band ui button red center">
+        <i class="icon trash"></i>
+        Remove Band
+      </button>
+      {{!-- <button class="ui button red">BAD</button> --}}
 
     </div>
   </div>

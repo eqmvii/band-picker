@@ -1,7 +1,15 @@
 $(document).ready(() => {
     console.log(`document loaded; JS linked!`);
 
+//
+// SEMANTIC UI
+//
+
     $('.select').dropdown();
+
+//
+// USERS
+//
 
     // listen for clicks on any user's delete button
     $("body").on("click", ".js-delete-one-user", function () {
@@ -41,5 +49,22 @@ $(document).ready(() => {
         $(`#edit-form-${toUpdate}`).toggle();
     });
 
+
+//
+// BANDS
+//
+
+    // listen for clicks on any user's delete button
+    $("body").on("click", ".js-delete-one-band", function () {
+        var toDelete = parseInt($(this).attr("data-js"), 10);
+        console.log(`Trying to delete band #${toDelete}`);
+        $.ajax({
+            url: `/api/bands/${toDelete}`,
+            method: "DELETE"
+        }).then(function (data) {
+            console.log("Response received");
+            location.reload();
+        });
+    });
 
 });

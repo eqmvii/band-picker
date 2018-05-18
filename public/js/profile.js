@@ -32,4 +32,23 @@ $(document).ready(() => {
         });
     });
 
+    // listen for clicks on any user's delete button
+    $("body").on("click", ".js-remove-band", function () {
+        console.log("add band clicked");
+        var bandToRemove = parseInt($(this).attr("data-js-band"), 10);
+        var userToRemove = parseInt($(this).attr("data-js-user"), 10);
+        console.log(`Remove band ${bandToRemove}`);
+        $.ajax({
+            url: `/api/banduser`,
+            method: "DELETE",
+            data: {
+                userToRemove: userToRemove,
+                bandToRemove: bandToRemove
+            }
+        }).then(function (data) {
+            console.log("Response received");
+            location.reload();
+        });
+    });
+
 });

@@ -112,6 +112,20 @@ module.exports = function (app) {
         });
     });
 
+    app.delete("/api/bands/:id", (req, res) => {
+        var idToDelete = parseInt(req.params.id, 10);
+        console.log(`idToDelete: ${idToDelete}`);
+        db.Band.destroy({
+            where: {
+                id: idToDelete
+            }
+        }).then(function (response) {
+            console.log("Tried to delete just the one...");
+            console.log(response);
+            res.end();
+        });
+    });
+
 
 //
 // ALL
@@ -139,7 +153,7 @@ module.exports = function (app) {
         });
 
 //
-// SEQUELIZE MANY-TO-MANY TEST ROUTES
+// BANDUSER RELATIONS
 //
 
     app.post("/api/banduser/", function(req, res) {
@@ -152,6 +166,22 @@ module.exports = function (app) {
             // console.log("got some!");
             // console.log(results);
             return results[0].addBand(results[1]);
+        })
+        .then((moreResults) => {
+            res.json(moreResults);
+        })
+    });
+
+    app.delete("/api/banduser/", function(req, res) {
+        // console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
+        // console.log(req.body);
+        var userToRemove = db.User.findOne({ where: { id: parseInt(req.body.userToRemove, 10) } });
+        var bandToRemove = db.Band.findOne({ where: { id: parseInt(req.body.bandToRemove, 10) } });
+        Promise.all([userToRemove, bandToRemove])
+        .then((results) => {
+            // console.log("got some!");
+            // console.log(results);
+            return results[0].removeBand(results[1]);
         })
         .then((moreResults) => {
             res.json(moreResults);

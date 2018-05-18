@@ -95,9 +95,8 @@
         </div>
       </div>
       <div class="extra content">
-        <button class="ui button green">Good</button>
-        <button class="ui button red">Remove</button>
-
+        <button id="delete-band-{{this.id}}" data-js="{{this.id}}" class="ui button red small js-delete-one-band">
+          <i class="icon trash"></i> Remove Band</button>
       </div>
     </div>
     {{/each}}

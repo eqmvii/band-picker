@@ -13,10 +13,11 @@
   <strong>Time: </strong> {{this.time}}
   <hr /> {{/each}} --}}
 
-  <form action="/api/bands" method="POST" class="ui form">
+  <h2>Add a band</h2>
+  <hr />
 
-    <h2>Add a band</h2>
-    <hr />
+
+  <form action="/api/bands" method="POST" class="ui form">
 
     <div class="field five wide">
       <label>Band Name</label>
@@ -58,14 +59,54 @@
 
     </div>
 
-    <button class="ui primary button" type="submit">
-      <i class="music user"></i>
-      Add Band
+    <button class="ui primary animated button" tabindex="0" type="submit">
+      <div class="visible content">Add Band</div>
+      <div class="hidden content">
+        <i class="music icon"></i>
+      </div>
     </button>
+
   </form>
-  <br />
 
   <hr />
+  <br />
+
+  <div class="ui link cards">
+    {{#each bands}}
+
+    <div class="ui card">
+      <div class="content">
+        <div class="header">{{this.name}}
+          <i class="music icon"></i>
+        </div>
+      </div>
+      <div class="content">
+        <h4 class="ui sub header">Details</h4>
+        <div class="ui small feed">
+
+          <div class="event">
+            <div class="content">
+              <div class="summary">
+                {{this.stage}} {{this.day}} {{this.time}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="extra content">
+        <button class="ui button green">Good</button>
+        <button class="ui button red">Remove</button>
+
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  <hr />
+
+  <br />
+
   <h2>Users:</h2>
 
   {{#each users}}
@@ -89,15 +130,23 @@
 
 
 
-  <form action="/api/users" method="POST">
+  <form action="/api/users" method="POST" class="ui form">
     <h3>Add a user</h3>
-    <p>username:
-      <input type="text" name="username"></input>
-    </p>
-    <p>Password:
-      <input type="text" name="password"></input>
-    </p>
-    <button type="submit">Submit</button>
+
+    <div class="field five wide">
+      <label>Username</label>
+      <input type="text" name="username" class="ui input"></input>
+    </div>
+
+    <div class="field five wide">
+      <label>Username</label>
+      <input type="text" name="password" class="ui input"></input>
+    </div>
+
+    <button class="ui primary button" type="submit">
+      <i class="icon user"></i>
+      Add User
+    </button>
   </form>
 
 

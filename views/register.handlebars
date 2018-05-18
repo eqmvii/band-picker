@@ -1,0 +1,26 @@
+<div class="ui warning message">
+    <i class="close icon"></i>
+    <div class="header">
+        This creates a new user, it doesn't register and log you in.
+    </div>
+    New user will appear in the list on the homepage.
+</div>
+
+<form action="/api/users" method="POST" class="ui form">
+    <h3>Add a user</h3>
+
+    <div class="field five wide">
+        <label>Username</label>
+        <input type="text" name="username" class="ui input"></input>
+    </div>
+
+    <div class="field five wide">
+        <label>Username</label>
+        <input type="text" name="password" class="ui input"></input>
+    </div>
+
+    <button class="ui primary button" type="submit">
+        <i class="icon user"></i>
+        Add User
+    </button>
+</form>

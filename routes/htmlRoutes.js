@@ -14,6 +14,10 @@ module.exports = function (app) {
         res.render("login");
     });
 
+    app.get("/register", (req, res) => {
+        res.render("register");
+    });
+
     app.post('/login',
         passport.authenticate('local', { failureRedirect: '/error' }),
         function (req, res) {

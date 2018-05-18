@@ -68,6 +68,10 @@
 
   </form>
 
+  <template name="foo">
+  <h1>Stars Test: {{randomStars}} </h1>
+  </template>
+
   <hr />
   <br />
 
@@ -88,6 +92,14 @@
             <div class="content">
               <div class="summary">
                 {{this.stage}} {{this.day}} {{this.time}}
+              </div>
+            </div>
+          </div>
+
+          <div class="event">
+            <div class="content">
+              <div class="summary">
+                <div class="ui star rating" data-rating="{{randomStars}}" ></div>
               </div>
             </div>
           </div>

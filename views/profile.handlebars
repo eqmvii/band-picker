@@ -1,18 +1,30 @@
 <h1>Hello {{ user.username }}! You are {{user.id}} </h1>
 <p>You are authenticated! You are user #{{user.id}}</p>
 <p>You were created at: {{user.createdAt}}</p>
-<p><a href="/api/bands">Bands API test just for you!</a></p>
+<p>
+  <a href="/api/bands">Bands API test just for you!</a>
+</p>
 
-  {{#if user.admin}}
-    <h1 style="color:red">YOU ARE A SUPER ADMIN</h1>
-    <hr />
-    <p><a href="/api/users">Users API test</a></p>
-    <p><a href="/api/bands">Bands API test</a></p>
-    <p><a href="/api/test/addmanytomany">ADD many to many test</a></p>
-    <p><a href="/api/test/getmanytomany">GET many to many test</a></p>
+{{#if user.admin}}
+<h1 style="color:red">YOU ARE A SUPER ADMIN</h1>
+<hr />
+<p>
+  <a href="/api/users">Users API test</a>
+</p>
+<p>
+  <a href="/api/bands">Bands API test</a>
+</p>
+<p>
+  <a href="/api/test/addmanytomany">ADD many to many test</a>
+</p>
+<p>
+  <a href="/api/test/getmanytomany">GET many to many test</a>
+</p>
 
-    <p><button id="delete-all">Delete all users and bands and associations</button></p>
-  {{/if}}
+<p>
+  <button id="delete-all">Delete all users and bands and associations</button>
+</p>
+{{/if}}
 
 
 
@@ -20,34 +32,69 @@
 
 <hr />
 <h1>All Bands</h1>
-{{#each allBands}}
-<p>
-  <!-- wow that scope thing below is dumb -->
-  <button id="add-band-{{this.id}}" data-js-band="{{this.id}}" data-js-user="{{ ../user.id }}" class="js-add-band">|ADD BAND|</button>
-  <!-- <strong>ID: </strong> {{this.id}} | -->
-  <strong>Name: </strong>{{this.name}} |
-  <strong>Stage: </strong>{{this.stage}} |
-  <strong>Day: </strong> {{this.day}} |
-  <strong>Time: </strong> {{this.time}}
-  <hr />
-{{/each}}
+
+<div class="ui link cards">
+  {{#each allBands}}
+
+  <div class="ui card">
+    <div class="content">
+      <div class="header center">{{this.name}} <i class="music icon"></i></div>
+    </div>
+    <div class="content">
+      <h4 class="ui sub header">Details</h4>
+      <div class="ui small feed">
+
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              {{this.stage}} {{this.day}} {{this.time}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="extra content">
+      <button id="add-band-{{this.id}}" data-js-band="{{this.id}}" data-js-user="{{ ../user.id }}" class="js-add-band ui button green center">Add Band</button>
+      {{!--
+      <button class="ui button red">BAD</button> --}}
+
+    </div>
+  </div>
+  {{/each}}
+</div>
 
 <h1>Your Bands</h1>
-{{#each myBands}}
-<p>
-  <!-- <strong>ID: </strong> {{this.id}} | -->
-  <strong>Name: </strong>{{this.name}} |
-  <strong>Stage: </strong>{{this.stage}} |
-  <strong>Day: </strong> {{this.day}} |
-  <strong>Time: </strong> {{this.time}}
-  <hr />
-{{/each}}
 
-<p><a href="/logout">Log Out</a></p>
+<div class="ui link cards">
+  {{#each myBands}}
 
+  <div class="ui card">
+    <div class="content">
+      <div class="header center">{{this.name}} <i class="music icon"></i></div>
+    </div>
+    <div class="content">
+      <h4 class="ui sub header">Details</h4>
+      <div class="ui small feed">
 
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              {{this.stage}} {{this.day}} {{this.time}}
+            </div>
+          </div>
+        </div>
 
+      </div>
+    </div>
+    <div class="extra content">
+      {{!--
+      <button id="add-band-{{this.id}}" data-js-band="{{this.id}}" data-js-user="{{ ../user.id }}" class="js-add-band ui button green center">Add Band</button> --}} {{!--
+      <button class="ui button red">BAD</button> --}}
 
-<a href="/">Back Home</a>
+    </div>
+  </div>
+  {{/each}}
+</div>
 
 <script src="js/profile.js" type="text/javascript"></script>

@@ -1,6 +1,8 @@
 $(document).ready(() => {
     console.log(`document loaded; JS linked!`);
 
+    $('.select').dropdown();
+
     // listen for clicks on any user's delete button
     $("body").on("click", ".js-delete-one-user", function () {
         var toDelete = parseInt($(this).attr("data-js"), 10);

@@ -1,16 +1,6 @@
  {{#if user}}
 <h1 style="color: black">Welcome, {{user.username}}!</h1>
-<p>
-  <a href="/profile">View Your Profile</a>
-</p>
-<p>
-  <a href="/logout">Log Out</a>
-</p>
-{{else}}
-<h3 style="color: red">You are not logged in</h3>
-<a href="/login">Log In</a>
-{{/if}}
-
+{{else}} {{/if}} {{!--
 <hr />
 <h2>Bands:</h2>
 
@@ -21,37 +11,61 @@
   <strong>Stage: </strong>{{this.stage}} |
   <strong>Day: </strong> {{this.day}} |
   <strong>Time: </strong> {{this.time}}
-  <hr />
-{{/each}}
+  <hr /> {{/each}} --}}
 
-  <form action="/api/bands" method="POST">
-    <h3>Add a band</h3>
-    <p>name:
-      <input type="text" name="name"></input>
-    </p>
-    <p>stage:
-      <select name="stage">
-        <option value="What">What</option>
-        <option value="Which">Which</option>
+  <form action="/api/bands" method="POST" class="ui form">
+
+    <h2>Add a band</h2>
+    <hr />
+
+    <div class="field five wide">
+      <label>Band Name</label>
+      <input type="text" name="name" class="ui input" placeholder="slayer"></input>
+    </div>
+
+    <div class="field five wide">
+      <label>Stage</label>
+      <select name="stage" class="ui dropdown select">
+        <option value="What">What Stage</option>
+        <option value="Which">Which Stage</option>
         <option value="The Other">The Other</option>
-        <option value="This">This</option>
-        <option value="That">This</option>
+        <option value="This">This Tent</option>
+        <option value="That">That Tent</option>
       </select>
-      <p>day:
-        <select name="day">
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-          <option value="Sunday">Sunday</option>
-        </select>
-      </p>
-      <p>time:
-        H: <input type="number" step="1" min="1" max="24" value="4" name="hours"> | M: <input type="number" step="15" min="0" max="60" value="0" name="minutes">
-      </p>
-      <button type="submit">Submit</button>
-  </form>
+    </div>
 
-  </hr / >
+    <div class="field five wide">
+      <label>Day</label>
+      <select name="day" class="ui dropdown select">
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+      </select>
+    </div>
+
+    <div class="inline fields">
+
+      <div class="two wide field">
+        <label>Hours: </label>
+        <input class="ui input" type="number" step="1" min="1" max="24" value="4" name="hours">
+      </div>
+
+      <div class="two wide field">
+        <label>Minutes: </label>
+        <input class="ui input" type="number" step="15" min="0" max="60" value="0" name="minutes">
+      </div>
+
+    </div>
+
+    <button class="ui primary button" type="submit">
+      <i class="music user"></i>
+      Add Band
+    </button>
+  </form>
+  <br />
+
+  <hr />
   <h2>Users:</h2>
 
   {{#each users}}
@@ -85,6 +99,7 @@
     </p>
     <button type="submit">Submit</button>
   </form>
+
 
 
   <script src="js/app.js" type="text/javascript"></script>

@@ -47,7 +47,8 @@
 
     <div class="inline fields four wide">
 
-      {{!-- <div class="two wide field">
+      {{!--
+      <div class="two wide field">
         <label>Hours: </label>
         <input class="ui input" type="number" step="1" min="1" max="24" value="4" name="hours">
       </div> --}}
@@ -115,13 +116,13 @@
         {{!--
         <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image right floated mini ui rounded image"></img> --}}
         <div class="header">{{this.name}}
-          <i class="music icon"></i>
+          {{!-- <i class="music icon"></i> --}}
         </div>
 
       </div>
 
       <div class="content">
-        <h4 class="ui sub header">Details</h4>
+        <h4 class="ui sub header">Artist</h4>
         <div class="ui small feed">
 
           <div class="event">
@@ -144,6 +145,14 @@
             <div class="content">
               <div class="summary">
                 <div class="ui star rating" data-rating="{{randomStars}}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="event">
+            <div class="content">
+              <div class="summary">
+                <a class="js-spotify-link" data-js-spotify-url="{{this.name}}" href=""></a>
               </div>
             </div>
           </div>

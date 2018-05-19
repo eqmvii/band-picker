@@ -27,6 +27,9 @@ This was originally based on an 'eat da burger' bootcamp exercise but took on a 
 
 # Todo List
 
-* cache band images
+* Cache band images and/or URLs
 * Add profile picture upload / AWS picture hosting
 * Make mobile responsive
+* Make times less terrible
+* Modals
+* Make login actuall login

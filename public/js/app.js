@@ -96,7 +96,9 @@ $(document).ready(() => {
             // console.log("Bandname Response Received");
             console.log(data);
             $(`[data-js-name="${bandName}"]`).attr('src', data.result.images[1].url);
-            // location.reload();
+            $(`[data-js-spotify-url="${bandName}"]`)
+                .attr('href', data.result.external_urls.spotify)
+                .text(bandName + " on Spotify");
         });
     }
 

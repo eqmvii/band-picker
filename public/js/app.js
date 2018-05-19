@@ -95,7 +95,7 @@ $(document).ready(() => {
         }).then(function (data) {
             // console.log("Bandname Response Received");
             console.log(data);
-            $(`#band-${bandName}`).attr('src', data.result.images[2].url);
+            $(`[data-js-name="${bandName}"]`).attr('src', data.result.images[1].url);
             // location.reload();
         });
     }

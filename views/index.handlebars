@@ -71,15 +71,19 @@
   <hr />
   <br />
 
-  <div class="ui link cards">
+  <div class="ui cards centered">
     {{#each bands}}
 
-    <div class="ui card">
+    <div class="ui green card">
+
       <div class="content">
+        {{!-- <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image right floated mini ui rounded image"></img> --}}
         <div class="header">{{this.name}}
           <i class="music icon"></i>
         </div>
+
       </div>
+
       <div class="content">
         <h4 class="ui sub header">Details</h4>
         <div class="ui small feed">
@@ -95,7 +99,6 @@
           <div class="event">
             <div class="content">
               <div class="summary">
-                <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image"></img>
               </div>
             </div>
           </div>
@@ -110,6 +113,11 @@
 
         </div>
       </div>
+
+      <div class="image">
+        <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image"></img>
+      </div>
+
       <div class="extra content">
         <button id="delete-band-{{this.id}}" data-js="{{this.id}}" class="ui button red small js-delete-one-band">
           <i class="icon trash"></i> Remove Band</button>

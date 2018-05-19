@@ -7,8 +7,9 @@ var SpotifyWebApi = require('spotify-web-api-node');
 module.exports = function () {
 
 
-    console.log("% % % % % % % % % Spotify API test: % % % % % % % % % ");
+    // console.log("% % % % % % % % % Spotify API test: % % % % % % % % % ");
 
+    // TODO: Update these
     this.spotifyApi = new SpotifyWebApi({
         clientId: '34e84d93de6a4650815e5420e0361fd3',
         clientSecret: '5162cd8b5cf940f48702dffe096c2acb',

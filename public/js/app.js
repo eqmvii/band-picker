@@ -75,15 +75,29 @@ $(document).ready(() => {
     });
 
     // loop through bands on page, ajax in their picture
-    console.log("Ajaxing!");
-    $.ajax({
-        url: `/api/spotify/band/slayer`,
-        method: "GET"
-    }).then(function (data) {
-        console.log("Bandname Response Received");
-        console.log(data);
-        $(`#band-slayer`).attr('src', data.result.images[2].url);
-        // location.reload();
-    });
+    // console.log("Ajaxing!");
+    // addBandImage("slayer");
+
+    var imagesToUpdate = $('.js-band-image');
+
+    // TODO: Replace with .map or .each or something
+    for (let i = 0; i < imagesToUpdate.length; i++) {
+        let bandName = $(imagesToUpdate[i]).attr('data-js-name');
+        console.log(`Band image for ${bandName}`);
+        addBandImage(bandName)
+    }
+
+    // TODO: Error handling for if there's no spotify image data
+    function addBandImage(bandName) {
+        $.ajax({
+            url: `/api/spotify/band/${bandName}`,
+            method: "GET"
+        }).then(function (data) {
+            // console.log("Bandname Response Received");
+            console.log(data);
+            $(`#band-${bandName}`).attr('src', data.result.images[2].url);
+            // location.reload();
+        });
+    }
 
 });

@@ -161,12 +161,13 @@ module.exports = function (app) {
 
     var walrus = new spotifyClient();
 
+    // Respond with band data for one band when asked by the frontend
     app.get("/api/spotify/band/:name", function (req, res) {
-        console.log("Band name request received");
+        // console.log("Band name request received");
         var bandName = req.params.name;
         walrus.artistSearch(bandName, function (result) {
-            console.log("Found: ");
-            console.log(result);
+            // console.log("Found: ");
+            // console.log(result);
             res.json({ result: result });
         })
     });

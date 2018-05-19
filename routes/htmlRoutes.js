@@ -1,11 +1,25 @@
 var db = require("../models");
 var passport = require('passport');
 
+
+
+
 module.exports = function (app) {
+
 
     app.get("/", (req, res) => {
         Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll({})])
             .then(function (results) {
+                // var bandNames = [];
+                // for (let i = 0; i < results[1].length; i++) {
+                //     bandNames.push(results[1][i].name);
+                // }
+                // console.log("BAND NAMES: ");
+                // console.log(bandNames);
+                // walrus.artistSearch(bandNames[0], function(results) {
+                //     console.log("RESULTS: ");
+                //     console.log(results);
+                // })
                 res.render("index", { user: req.user, users: results[0], bands: results[1], helpers: {
                     randomStars: randomStars
                 } });

@@ -74,4 +74,16 @@ $(document).ready(() => {
         });
     });
 
+    // loop through bands on page, ajax in their picture
+    console.log("Ajaxing!");
+    $.ajax({
+        url: `/api/spotify/band/slayer`,
+        method: "GET"
+    }).then(function (data) {
+        console.log("Bandname Response Received");
+        console.log(data);
+        $(`#band-slayer`).attr('src', data.result.images[2].url);
+        // location.reload();
+    });
+
 });

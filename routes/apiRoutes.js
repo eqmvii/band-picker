@@ -1,5 +1,7 @@
 var db = require("../models");
 var passport = require('passport');
+var spotifyClient = require("../controllers/spotify");
+
 
 // var Sequelize = require('sequelize');
 const Op = db.Sequelize.Op; // query operators
@@ -127,9 +129,9 @@ module.exports = function (app) {
     });
 
 
-//
-// ALL
-//
+    //
+    // ALL
+    //
 
     // TODO: Add administrative authentication requirement?
     app.delete("/api/all",
@@ -152,40 +154,58 @@ module.exports = function (app) {
             });
         });
 
-//
-// BANDUSER RELATIONS
-//
 
-    app.post("/api/banduser/", function(req, res) {
+    //
+    // BAND IMAGES FROM SPOTIFY
+    //
+
+    var walrus = new spotifyClient();
+
+    app.get("/api/spotify/band/:name", function (req, res) {
+        console.log("Band name request received");
+        var bandName = req.params.name;
+        walrus.artistSearch(bandName, function (result) {
+            console.log("Found: ");
+            console.log(result);
+            res.json({ result: result });
+        })
+    });
+
+
+    //
+    // BANDUSER RELATIONS
+    //
+
+    app.post("/api/banduser/", function (req, res) {
         // console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
         // console.log(req.body);
         var userToAdd = db.User.findOne({ where: { id: parseInt(req.body.userToAdd, 10) } });
         var bandToAdd = db.Band.findOne({ where: { id: parseInt(req.body.bandToAdd, 10) } });
         Promise.all([userToAdd, bandToAdd])
-        .then((results) => {
-            // console.log("got some!");
-            // console.log(results);
-            return results[0].addBand(results[1]);
-        })
-        .then((moreResults) => {
-            res.json(moreResults);
-        })
+            .then((results) => {
+                // console.log("got some!");
+                // console.log(results);
+                return results[0].addBand(results[1]);
+            })
+            .then((moreResults) => {
+                res.json(moreResults);
+            })
     });
 
-    app.delete("/api/banduser/", function(req, res) {
+    app.delete("/api/banduser/", function (req, res) {
         // console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
         // console.log(req.body);
         var userToRemove = db.User.findOne({ where: { id: parseInt(req.body.userToRemove, 10) } });
         var bandToRemove = db.Band.findOne({ where: { id: parseInt(req.body.bandToRemove, 10) } });
         Promise.all([userToRemove, bandToRemove])
-        .then((results) => {
-            // console.log("got some!");
-            // console.log(results);
-            return results[0].removeBand(results[1]);
-        })
-        .then((moreResults) => {
-            res.json(moreResults);
-        })
+            .then((results) => {
+                // console.log("got some!");
+                // console.log(results);
+                return results[0].removeBand(results[1]);
+            })
+            .then((moreResults) => {
+                res.json(moreResults);
+            })
     });
 
     // TODO: Fix this this is broken now and doesn't really do anything
@@ -199,28 +219,28 @@ module.exports = function (app) {
         }
 
         var admin = db.User.findOne({ where: { admin: true } });
-        var band =  db.Band.findOne({ where: { name: 'adminTestBandTwo' } });
+        var band = db.Band.findOne({ where: { name: 'adminTestBandTwo' } });
         Promise.all([admin, band])
-        .then((results) => {
-            // TODO: Add the bad/user association call where did it go
-            console.log("woah!");
-            console.log(results);
-            res.json(results);
-        })
+            .then((results) => {
+                // TODO: Add the bad/user association call where did it go
+                console.log("woah!");
+                console.log(results);
+                res.json(results);
+            })
     });
 
     app.get('/api/test/getmanytomany', function (req, res) {
         db.User.findOne({ where: { admin: true } })
-        .then(function (results) {
-            console.log(results.get({ plain: true }));
-            var admin = results;
-            return admin.getBands(); // Note to self: return a promise for sane-then-chains
+            .then(function (results) {
+                console.log(results.get({ plain: true }));
+                var admin = results;
+                return admin.getBands(); // Note to self: return a promise for sane-then-chains
             })
-        .then(function(results){
-            console.log("Admin got with better nesting: ");
-            // console.log(results);
-            res.json(results);
-        })
+            .then(function (results) {
+                console.log("Admin got with better nesting: ");
+                // console.log(results);
+                res.json(results);
+            })
 
     });
 };

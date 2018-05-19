@@ -27,11 +27,11 @@
     <div class="field five wide">
       <label>Stage</label>
       <select name="stage" class="ui dropdown select">
-        <option value="What">What Stage</option>
-        <option value="Which">Which Stage</option>
+        <option value="What Stage">What Stage</option>
+        <option value="Which Stage">Which Stage</option>
         <option value="The Other">The Other</option>
-        <option value="This">This Tent</option>
-        <option value="That">That Tent</option>
+        <option value="This Tent">This Tent</option>
+        <option value="That Tent">That Tent</option>
       </select>
     </div>
 
@@ -91,7 +91,7 @@
           <div class="event">
             <div class="content">
               <div class="summary">
-                {{this.stage}} {{this.day}} {{this.time}}
+                {{this.stage}}
               </div>
             </div>
           </div>
@@ -99,6 +99,7 @@
           <div class="event">
             <div class="content">
               <div class="summary">
+                {{getFormattedTimeString this.time}}
               </div>
             </div>
           </div>

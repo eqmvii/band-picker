@@ -11,7 +11,8 @@ module.exports = function (app) {
         Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll({})])
             .then(function (results) {
                 res.render("index", { user: req.user, users: results[0], bands: results[1], helpers: {
-                    randomStars: randomStars
+                    randomStars: randomStars,
+                    getFormattedTimeString: getFormattedTimeString
                 } });
             });
     });
@@ -73,6 +74,23 @@ module.exports = function (app) {
     function randomStars() {
         console.log("helper got called");
         return "" + Math.floor((Math.random() * 10) + 1);
+    }
+
+    function minuteFormat(time) {
+        if (time == "0") {
+            return "00";
+        } else {
+            return time;
+        }
+    }
+
+    function getFormattedTimeString(time) {
+        console.log(time);
+        var master_time = new Date(time);
+        var date = master_time.toDateString();
+        date = date.substring(0, date.length - 4);
+        time = master_time.getHours() + ":" + minuteFormat(master_time.getMinutes());
+       return "Time: " + date + time;
     }
 
 };

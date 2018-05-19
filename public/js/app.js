@@ -1,24 +1,18 @@
 $(document).ready(() => {
     console.log(`document loaded; JS linked!`);
 
+
     //
     // SEMANTIC UI
     //
 
     $('.select').dropdown();
 
-    $('.ui.rating').rating();
-
-    //
-    // HANDLEBARS
-    //
-
-    // TODO: This isn't working or being called at all
-    Handlebars.registerHelper("randomStars", function () {
-        console.log("helper got called");
-        // return Math.floor(Math.random(5) + 1);
-        return "4";
+    $('.ui.rating').rating({
+        maxRating: 10
     });
+
+
 
     //
     // USERS

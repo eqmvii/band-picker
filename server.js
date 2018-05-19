@@ -12,6 +12,58 @@ var db = require("./models");
 
 
 //
+// SPOTIFY TEST
+//
+
+var SpotifyWebApi = require('spotify-web-api-node');
+
+console.log("Spotify API test: ");
+
+// credentials are optional
+var spotifyApi = new SpotifyWebApi({
+    clientId: '34e84d93de6a4650815e5420e0361fd3',
+    clientSecret: '5162cd8b5cf940f48702dffe096c2acb',
+    redirectUri: 'http://www.example.com/callback'
+});
+
+// spotifyApi.setAccessToken('<your_access_token>');
+
+// Retrieve an access token
+spotifyApi.clientCredentialsGrant().then(
+    function (data) {
+        console.log('The access token expires in ' + data.body['expires_in']);
+        console.log('The access token is ' + data.body['access_token']);
+
+        // Save the access token so that it's used in future calls
+        spotifyApi.setAccessToken(data.body['access_token']);
+
+        // spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
+        //     .then(function (data) {
+        //         console.log('Artist information', data.body);
+        //     }, function (err) {
+        //         console.error(err);
+        //     });
+
+        // Search artists whose name contains 'Love'
+        spotifyApi.searchArtists('Slayer')
+            .then(function (data) {
+                console.log('Search artists by "Slayer"', data.body);
+                console.log(data.body.artists.items[0]);
+            }, function (err) {
+                console.error(err);
+            });
+    },
+    function (err) {
+        console.log(
+            'Something went wrong when retrieving an access token',
+            err.message
+        );
+    }
+);
+
+
+
+//
 // CONFIG
 //
 

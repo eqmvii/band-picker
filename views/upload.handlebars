@@ -29,12 +29,12 @@
         <br />
 
         <p>
-            <img id="preview" src="https://s3.us-east-2.amazonaws.com/eqmvii-burgereater/me.png" class="ui medium circular image upload-profile-pic">
+            <img id="preview" src="{{user.profile_pic_url}}" class="ui medium circular image upload-profile-pic">
         </p>
 
         <form method="POST" action="/save-details">
-            <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
-            <input type="hidden" id="user-id" name="user-id" value="{{user.id}}">
+            <input type="hidden" id="avatar-url" name="profile_pic_url" value="/images/default.png">
+            <input type="hidden" id="user-id" name="user_id" value="{{user.id}}">
             <input type="submit" value="Update profile" class="ui primary button">
         </form>
     </div>

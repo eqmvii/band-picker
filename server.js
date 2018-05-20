@@ -102,7 +102,7 @@ app.get('/sign-s3', (req, res) => {
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
         if (err) {
             console.log(err);
-            res.write(JSON.stringify({error: "didn't work"}));
+            res.write(JSON.stringify({ error: "didn't work" }));
             return res.end();
         }
         const returnData = {
@@ -118,7 +118,20 @@ app.post('/save-details', (req, res) => {
     // TODO: Read POSTed form data and do something useful
 
     console.log('% % % % % % % % AWS POST ROUTE HIT % % % % % % % % ');
-    res.redirect('/profile');
+
+    let url = req.body.profile_pic_url;
+    let id = parseInt(req.body.user_id, 10);
+
+    console.log(`URL: ${url} | ID: ${id}`)
+
+    // TODO: Sequelize and ORM-ify this
+    db.sequelize.query(`UPDATE users SET profile_pic_url = '${url}' WHERE id = ${id}`).spread((results, metadata) => {
+        // Results will be an empty array and metadata will contain the number of affected rows.
+        res.redirect('/profile');
+
+    });
+
+
 
 });
 

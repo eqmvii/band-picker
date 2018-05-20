@@ -2,7 +2,7 @@
 <div class="ui">
   <h1 class="ui center aligned header">Hello {{ user.username }}! You are user # {{user.id}} </h1>
 
-<img id="profile-pic" class="ui centered medium circular bordered image" src="https://s3.us-east-2.amazonaws.com/eqmvii-burgereater/me.png"></img>
+<img id="profile-pic" class="ui centered medium circular bordered image" src="{{user.profile_pic_url}}"></img>
 <a href="/upload">Upload a profile pic!</a>
 </div>
 

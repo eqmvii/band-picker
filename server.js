@@ -114,26 +114,28 @@ app.get('/sign-s3', (req, res) => {
     });
 });
 
-app.post('/save-details', (req, res) => {
-    // TODO: Read POSTed form data and do something useful
+app.post('/save-details',
+    require('connect-ensure-login').ensureLoggedIn('/login'),
+    (req, res) => {
+        // TODO: Read POSTed form data and do something useful
 
-    console.log('% % % % % % % % AWS POST ROUTE HIT % % % % % % % % ');
+        console.log('% % % % % % % % AWS POST ROUTE HIT % % % % % % % % ');
+        console.log(req.user);
 
-    let url = req.body.profile_pic_url;
-    let id = parseInt(req.body.user_id, 10);
+        let url = req.body.profile_pic_url;
+        let id = parseInt(req.body.user_id, 10);
 
-    console.log(`URL: ${url} | ID: ${id}`)
+        console.log(`URL: ${url} | ID: ${id}`)
 
-    // TODO: Sequelize and ORM-ify this
-    db.sequelize.query(`UPDATE users SET profile_pic_url = '${url}' WHERE id = ${id}`).spread((results, metadata) => {
+        // TODO: Sequelize and ORM-ify this
+        // db.sequelize.query(`UPDATE users SET profile_pic_url = '${url}' WHERE id = ${id}`).spread((results, metadata) => {
         // Results will be an empty array and metadata will contain the number of affected rows.
-        res.redirect('/profile');
-
+        req.user.update( { profile_pic_url: url }, { where: { id: id } } )
+        .then(function(response) {
+            console.log(response);
+            res.redirect('/profile');
+        });
     });
-
-
-
-});
 
 
 //

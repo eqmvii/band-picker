@@ -44,7 +44,8 @@
 				<i class="window close icon"></i> Logout</a>
 
 			{{else}}
-			<a class="item" href="/register">				<i class="user plus icon"></i> Register</a>
+			<a class="item" href="/register">
+				<i class="user plus icon"></i> Register</a>
 
 
 			<a class="item" href="/login">
@@ -74,15 +75,27 @@
 		</div>
 	</div>
 
+	{{!-- <div class="ui fluid">
+		<h1 class="ui center aligned header">Band Picker</h1>
+		<img src="https://s3.us-east-2.amazonaws.com/eqmvii-burgereater/arch.png" class=" ui centered medium rounded bordered image" />
+	</div> --}}
+
+	<div class="landing-image">
+		<span id="landing-text">Band Picker</span>
+	</div>
+
 	<div class="ui container">
 
 		{{{ body }}}
 		<br />
 		<hr />
 		<br />
-		<p>Made by
+		<h4 class="ui center aligned header">
+			Made by
 			<a href="https://github.com/eqmvii">Eric Mancini</a>
-		</p>
+		</h4>
+		<br/>
+
 	</div>
 
 </body>

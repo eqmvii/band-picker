@@ -1,223 +1,214 @@
- {{#if user}}
-<h1 style="color: black">Welcome, {{user.username}}!</h1>
-{{else}} {{/if}} {{!--
+<h1 class="ui center aligned header">Bands</h1>
 <hr />
-<h2>Bands:</h2>
 
-{{#each bands}}
-<p>
-  <!-- <strong>ID: </strong> {{this.id}} | -->
-  <strong>Name: </strong>{{this.name}} |
-  <strong>Stage: </strong>{{this.stage}} |
-  <strong>Day: </strong> {{this.day}} |
-  <strong>Time: </strong> {{this.time}}
-  <hr /> {{/each}} --}}
+<br />
 
-  <h2>Add a band</h2>
-  <hr />
+<div class="ui cards centered">
+  {{#each bands}}
 
+  <div class="ui green card">
 
-  <form action="/api/bands" method="POST" class="ui form">
-
-    <div class="field five wide">
-      <label>Band Name</label>
-      <input type="text" name="name" class="ui input" placeholder="slayer"></input>
-    </div>
-
-    <div class="field five wide">
-      <label>Stage</label>
-      <select name="stage" class="ui dropdown select">
-        <option value="What Stage">What Stage</option>
-        <option value="Which Stage">Which Stage</option>
-        <option value="The Other">The Other</option>
-        <option value="This Tent">This Tent</option>
-        <option value="That Tent">That Tent</option>
-      </select>
-    </div>
-
-    <div class="field five wide">
-      <label>Day</label>
-      <select name="day" class="ui dropdown select">
-        <option value="Thursday">Thursday</option>
-        <option value="Friday">Friday</option>
-        <option value="Saturday">Saturday</option>
-        <option value="Sunday">Sunday</option>
-      </select>
-    </div>
-
-    <div class="inline fields four wide">
-
+    <div class="content">
       {{!--
-      <div class="two wide field">
-        <label>Hours: </label>
-        <input class="ui input" type="number" step="1" min="1" max="24" value="4" name="hours">
-      </div> --}}
-
-      <div class="one wide">
-        <label>Hour</label>
-        <select name="hours" class="ui dropdown select">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-          <option value="13">1(am)</option>
-          <option value="14">2(am)</option>
-          <option value="15">3(am)</option>
-
-
-        </select>
-      </div>
-
-      {{!--
-      <div class="two wide field">
-        <label>Minutes: </label>
-        <input class="ui input" type="number" step="15" min="0" max="45" value="0" name="minutes">
-      </div> --}}
-
-      <div class="ui one wide">
-        <label>Min</label>
-        <select name="minutes" class="ui dropdown select">
-          <option value="0">00</option>
-          <option value="15">15</option>
-          <option value="30">30</option>
-          <option value="45">45</option>
-        </select>
+      <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image right floated mini ui rounded image"></img> --}}
+      <div class="header">{{this.name}} {{!--
+        <i class="music icon"></i> --}}
       </div>
 
     </div>
 
-    <button class="ui primary animated button" tabindex="0" type="submit">
-      <div class="visible content">Add Band</div>
-      <div class="hidden content">
-        <i class="music icon"></i>
-      </div>
-    </button>
+    <div class="content">
+      <h4 class="ui sub header">Artist</h4>
+      <div class="ui small feed">
 
-  </form>
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              {{this.stage}}
+            </div>
+          </div>
+        </div>
 
-  <hr />
-  <br />
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              {{getFormattedTimeString this.time}}
+            </div>
+          </div>
+        </div>
 
-  <div class="ui cards centered">
-    {{#each bands}}
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              <div class="ui star rating" data-rating="{{randomStars}}"></div>
+            </div>
+          </div>
+        </div>
 
-    <div class="ui green card">
-
-      <div class="content">
-        {{!--
-        <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image right floated mini ui rounded image"></img> --}}
-        <div class="header">{{this.name}}
-          {{!-- <i class="music icon"></i> --}}
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              <a class="js-spotify-link" data-js-spotify-url="{{this.name}}" href=""></a>
+            </div>
+          </div>
         </div>
 
       </div>
-
-      <div class="content">
-        <h4 class="ui sub header">Artist</h4>
-        <div class="ui small feed">
-
-          <div class="event">
-            <div class="content">
-              <div class="summary">
-                {{this.stage}}
-              </div>
-            </div>
-          </div>
-
-          <div class="event">
-            <div class="content">
-              <div class="summary">
-                {{getFormattedTimeString this.time}}
-              </div>
-            </div>
-          </div>
-
-          <div class="event">
-            <div class="content">
-              <div class="summary">
-                <div class="ui star rating" data-rating="{{randomStars}}"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="event">
-            <div class="content">
-              <div class="summary">
-                <a class="js-spotify-link" data-js-spotify-url="{{this.name}}" href=""></a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="image">
-        <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image"></img>
-      </div>
-
-      <div class="extra content">
-        <button id="delete-band-{{this.id}}" data-js="{{this.id}}" class="ui button red small js-delete-one-band">
-          <i class="icon trash"></i> Remove Band</button>
-      </div>
     </div>
-    {{/each}}
+
+    <div class="image">
+      <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image"></img>
+    </div>
+
+    <div class="extra content">
+      <button id="delete-band-{{this.id}}" data-js="{{this.id}}" class="ui button red small js-delete-one-band">
+        <i class="icon trash"></i> Remove Band</button>
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+<hr />
+
+<br />
+
+<h2>Add a band</h2>
+<hr />
+
+
+<form action="/api/bands" method="POST" class="ui form">
+
+  <div class="field five wide">
+    <label>Band Name</label>
+    <input type="text" name="name" class="ui input" placeholder="slayer"></input>
   </div>
 
-  <hr />
+  <div class="field five wide">
+    <label>Stage</label>
+    <select name="stage" class="ui dropdown select">
+      <option value="What Stage">What Stage</option>
+      <option value="Which Stage">Which Stage</option>
+      <option value="The Other">The Other</option>
+      <option value="This Tent">This Tent</option>
+      <option value="That Tent">That Tent</option>
+    </select>
+  </div>
 
-  <br />
+  <div class="field five wide">
+    <label>Day</label>
+    <select name="day" class="ui dropdown select">
+      <option value="Thursday">Thursday</option>
+      <option value="Friday">Friday</option>
+      <option value="Saturday">Saturday</option>
+      <option value="Sunday">Sunday</option>
+    </select>
+  </div>
 
-  <h2>Users:</h2>
+  <div class="inline fields four wide">
 
-  {{#each users}}
-  <p>
-    <!-- <strong>ID: </strong> {{this.id}} | -->
-    <strong>User: </strong>{{this.username}} |
-    <strong>password: </strong>{{this.password}} |
-    <strong>Created: </strong> {{this.createdAt}}
-    <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">Delete</button>
-    <button id="edit-button-{{thid.id}}" class="js-edit-button" data-js="{{this.id}}">Edit</button>
-  </p>
-  <p id="edit-form-{{this.id}}" class="edit-form">
-    Edit Username:
-    <input id="edit-username-{{this.id}}" type="text" name="username" value="{{this.username}}"></input>
-    Edit Password:
-    <input id="edit-password-{{this.id}}" type="text" name="password" value="{{this.password}}"></input>
-    <button id="update{{this.id}}" data-js="{{this.id}}" class="js-update-one-user">Update</button>
-  </p>
+    {{!--
+    <div class="two wide field">
+      <label>Hours: </label>
+      <input class="ui input" type="number" step="1" min="1" max="24" value="4" name="hours">
+    </div> --}}
 
-  <hr /> {{/each}}
+    <div class="one wide">
+      <label>Hour</label>
+      <select name="hours" class="ui dropdown select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">1(am)</option>
+        <option value="14">2(am)</option>
+        <option value="15">3(am)</option>
 
 
-
-  <form action="/api/users" method="POST" class="ui form">
-    <h3>Add a user</h3>
-
-    <div class="field five wide">
-      <label>Username</label>
-      <input type="text" name="username" class="ui input"></input>
+      </select>
     </div>
 
-    <div class="field five wide">
-      <label>Username</label>
-      <input type="text" name="password" class="ui input"></input>
+    {{!--
+    <div class="two wide field">
+      <label>Minutes: </label>
+      <input class="ui input" type="number" step="15" min="0" max="45" value="0" name="minutes">
+    </div> --}}
+
+    <div class="ui one wide">
+      <label>Min</label>
+      <select name="minutes" class="ui dropdown select">
+        <option value="0">00</option>
+        <option value="15">15</option>
+        <option value="30">30</option>
+        <option value="45">45</option>
+      </select>
     </div>
 
-    <button class="ui primary button" type="submit">
-      <i class="icon user"></i>
-      Add User
-    </button>
-  </form>
+  </div>
+
+  <button class="ui primary animated button" tabindex="0" type="submit">
+    <div class="visible content">Add Band</div>
+    <div class="hidden content">
+      <i class="music icon"></i>
+    </div>
+  </button>
+
+</form>
+
+<hr />
+<br />
+
+
+<h2>Users:</h2>
+
+{{#each users}}
+<p>
+  <!-- <strong>ID: </strong> {{this.id}} | -->
+  <strong>User: </strong>{{this.username}} |
+  <strong>password: </strong>{{this.password}} |
+  <strong>Created: </strong> {{this.createdAt}}
+  <button id="{{this.id}}" data-js="{{this.id}}" class="js-delete-one-user">Delete</button>
+  <button id="edit-button-{{thid.id}}" class="js-edit-button" data-js="{{this.id}}">Edit</button>
+</p>
+<p id="edit-form-{{this.id}}" class="edit-form">
+  Edit Username:
+  <input id="edit-username-{{this.id}}" type="text" name="username" value="{{this.username}}"></input>
+  Edit Password:
+  <input id="edit-password-{{this.id}}" type="text" name="password" value="{{this.password}}"></input>
+  <button id="update{{this.id}}" data-js="{{this.id}}" class="js-update-one-user">Update</button>
+</p>
+
+<hr /> {{/each}}
 
 
 
-  <script src="js/app.js" type="text/javascript"></script>
+<form action="/api/users" method="POST" class="ui form">
+  <h3>Add a user</h3>
+
+  <div class="field five wide">
+    <label>Username</label>
+    <input type="text" name="username" class="ui input"></input>
+  </div>
+
+  <div class="field five wide">
+    <label>Username</label>
+    <input type="text" name="password" class="ui input"></input>
+  </div>
+
+  <button class="ui primary button" type="submit">
+    <i class="icon user"></i>
+    Add User
+  </button>
+</form>
+
+
+
+<script src="js/app.js" type="text/javascript"></script>

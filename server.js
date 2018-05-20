@@ -83,58 +83,49 @@ console.log(`S3 bucket: ${S3_BUCKET}`);
 aws.config.region = 'us-east-2';
 
 // file upload boilerplate
-app.get('/sign-s3', (req, res) => {
-    prp();
-    console.log("Sign-s3 route hit");
-    const s3 = new aws.S3();
-    const fileName = req.query['file-name'];
-    const fileType = req.query['file-type'];
-    const s3Params = {
-        Bucket: S3_BUCKET,
-        Key: fileName,
-        Expires: 60,
-        ContentType: fileType,
-        ACL: 'public-read'
-    };
-
-    console.log(s3Params);
-
-    s3.getSignedUrl('putObject', s3Params, (err, data) => {
-        if (err) {
-            console.log(err);
-            res.write(JSON.stringify({ error: "didn't work" }));
-            return res.end();
-        }
-        const returnData = {
-            signedRequest: data,
-            url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+app.get('/sign-s3',
+    require('connect-ensure-login').ensureLoggedIn('/login'),
+    (req, res) => {
+        prp();
+        console.log("Sign-s3 route hit");
+        const s3 = new aws.S3();
+        const fileName = "u" + req.user.id + "p" + PORT + "r" + Math.floor(Math.random() * 100) + "f" + req.query['file-name'];
+        const fileType = req.query['file-type'];
+        const s3Params = {
+            Bucket: S3_BUCKET,
+            Key: fileName,
+            Expires: 60,
+            ContentType: fileType,
+            ACL: 'public-read'
         };
-        res.write(JSON.stringify(returnData));
-        res.end();
+
+        console.log(s3Params);
+
+        s3.getSignedUrl('putObject', s3Params, (err, data) => {
+            if (err) {
+                console.log(err);
+                return res.end();
+            }
+            const returnData = {
+                signedRequest: data,
+                url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+            };
+            res.write(JSON.stringify(returnData));
+            res.end();
+        });
     });
-});
 
 app.post('/save-details',
     require('connect-ensure-login').ensureLoggedIn('/login'),
     (req, res) => {
-        // TODO: Read POSTed form data and do something useful
-
-        console.log('% % % % % % % % AWS POST ROUTE HIT % % % % % % % % ');
-        console.log(req.user);
-
         let url = req.body.profile_pic_url;
         let id = parseInt(req.body.user_id, 10);
-
-        console.log(`URL: ${url} | ID: ${id}`)
-
-        // TODO: Sequelize and ORM-ify this
-        // db.sequelize.query(`UPDATE users SET profile_pic_url = '${url}' WHERE id = ${id}`).spread((results, metadata) => {
-        // Results will be an empty array and metadata will contain the number of affected rows.
-        req.user.update( { profile_pic_url: url }, { where: { id: id } } )
-        .then(function(response) {
-            console.log(response);
-            res.redirect('/profile');
-        });
+        console.log(`Profile Pic Added; URL: ${url} | ID: ${id}`)
+        req.user.update({ profile_pic_url: url }, { where: { id: id } })
+            .then(function (response) {
+                console.log(response);
+                res.redirect('/profile');
+            });
     });
 
 

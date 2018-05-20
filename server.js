@@ -116,7 +116,10 @@ app.get('/sign-s3', (req, res) => {
 
 app.post('/save-details', (req, res) => {
     // TODO: Read POSTed form data and do something useful
-    console.log('% % % % % % % % AWS POST ROUTE HIT % % % % % % % % ')
+
+    console.log('% % % % % % % % AWS POST ROUTE HIT % % % % % % % % ');
+    res.redirect('/profile');
+
 });
 
 

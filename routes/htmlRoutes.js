@@ -60,7 +60,7 @@ module.exports = function (app) {
         });
 
     app.get("/error", (req, res) => {
-        res.render("error");
+        res.render("error", {user: req.user });
     });
 
 
@@ -70,7 +70,7 @@ module.exports = function (app) {
 
     app.get("/bands", (req, res) => {
         db.Band.findAll({}).then(function (results) {
-            res.render("bands/all", { bands: results });
+            res.render("bands/all", { user: req.user, bands: results });
         });
     });
 

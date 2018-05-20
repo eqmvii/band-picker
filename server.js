@@ -1,5 +1,7 @@
 // server.js
 
+// Config
+require('dotenv').config();
 // Server
 var express = require("express");
 var express_handlebars = require("express-handlebars");
@@ -71,6 +73,52 @@ app.use(express.static('public'));
 require("./routes/apiRoutes.js")(app);
 require("./routes/htmlRoutes.js")(app);
 
+//
+// TEMPORARY AWS STUFF
+//
+
+const aws = require('aws-sdk');
+const S3_BUCKET = process.env.S3_BUCKET;
+console.log(`S3 bucket: ${S3_BUCKET}`);
+aws.config.region = 'us-east-2';
+
+// file upload boilerplate
+app.get('/sign-s3', (req, res) => {
+    prp();
+    console.log("Sign-s3 route hit");
+    const s3 = new aws.S3();
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+        Bucket: S3_BUCKET,
+        Key: fileName,
+        Expires: 60,
+        ContentType: fileType,
+        ACL: 'public-read'
+    };
+
+    console.log(s3Params);
+
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.write(JSON.stringify({error: "didn't work"}));
+            return res.end();
+        }
+        const returnData = {
+            signedRequest: data,
+            url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        };
+        res.write(JSON.stringify(returnData));
+        res.end();
+    });
+});
+
+app.post('/save-details', (req, res) => {
+    // TODO: Read POSTed form data and do something useful
+    console.log('% % % % % % % % AWS POST ROUTE HIT % % % % % % % % ')
+});
+
 
 //
 // START SERVER
@@ -81,3 +129,11 @@ db.sequelize.sync().then(function () {
         console.log(`Server listening on port ${PORT}`);
     });
 });
+
+//
+// DEBUG
+//
+
+function prp() {
+    console.log("% % % % % % % % % % % % % % % ");
+}

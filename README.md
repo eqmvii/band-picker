@@ -33,3 +33,4 @@ This was originally based on an 'eat da burger' bootcamp exercise but took on a 
 * Make times less terrible
 * Modals
 * Make login actuall login
+* Sort out strangeness with authentication and routes

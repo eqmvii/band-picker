@@ -10,10 +10,12 @@ module.exports = function (app) {
     app.get("/", (req, res) => {
         Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll({})])
             .then(function (results) {
-                res.render("index", { user: req.user, users: results[0], bands: results[1], helpers: {
-                    randomStars: randomStars,
-                    getFormattedTimeString: getFormattedTimeString
-                } });
+                res.render("index", {
+                    user: req.user, users: results[0], bands: results[1], helpers: {
+                        randomStars: randomStars,
+                        getFormattedTimeString: getFormattedTimeString
+                    }
+                });
             });
     });
 
@@ -49,6 +51,12 @@ module.exports = function (app) {
                 .then(function (results) {
                     res.render("profile", { user: req.user, myBands: results[0], allBands: results[1] });
                 });
+        });
+
+    app.get('/upload',
+        require('connect-ensure-login').ensureLoggedIn('/login'),
+        function (req, res) {
+            res.render("upload", { user: req.user });
         });
 
     app.get("/error", (req, res) => {
@@ -90,7 +98,7 @@ module.exports = function (app) {
         var date = master_time.toDateString();
         date = date.substring(0, date.length - 4);
         time = master_time.getHours() + ":" + minuteFormat(master_time.getMinutes());
-       return "Time: " + date + time;
+        return "Time: " + date + time;
     }
 
 };

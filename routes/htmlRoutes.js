@@ -63,7 +63,7 @@ module.exports = function (app) {
                 .then(function (results) {
                     console.log("% % % % % % % % % %");
                     console.log(results[0][0].get({plain: true}));
-                    console.log(results[0][0].Bands[0].BandUser.get({plain: true}));
+                    // console.log(results[0][0].Bands[0].BandUser.get({plain: true}));
                     res.render("profile", { user: req.user, myBands: results[0][0].Bands, allBands: results[1] });
                 });
         });

@@ -34,6 +34,5 @@ This was originally based on an 'eat da burger' bootcamp exercise but took on a 
 * Make login actually login
 * Add notes about bands
 * Add band ratings DB integration
-* Move and refactor AWS profile pic hosting logic
 * File upload security & restrictions
 

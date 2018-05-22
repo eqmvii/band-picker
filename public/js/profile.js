@@ -2,8 +2,26 @@ $(document).ready(() => {
 
     console.log("profile js loaded");
 
+
     $('.ui.rating').rating({
         maxRating: 10
+    }).rating('setting', 'onRate', function (value) {
+        var user = parseInt($(this).attr('data-js-user'), 10);
+        var band = parseInt($(this).attr('data-js-band'), 10);
+        console.log(`User: ${user} | Band: ${band} | Rating: ${value}`);
+        $.ajax({
+            url: `/api/rating`,
+            method: "POST",
+            data: {
+                band: band,
+                user: user,
+                rating: value
+            }
+        }).then(function (data) {
+            console.log("Response received");
+            // Do this?
+            // location.reload();
+        });
     });
 
     $("#delete-all").on("click", function () {

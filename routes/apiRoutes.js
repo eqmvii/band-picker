@@ -209,6 +209,42 @@ module.exports = function (app) {
             })
     });
 
+    //
+    // RATINGS
+    //
+
+    app.post("/api/rating", function (req, res) {
+        console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
+        console.log(req.body);
+        db.BandUser.update(
+            {
+                rating: parseInt(req.body.rating, 10)
+            }, {
+                where: {
+                    UserId: parseInt(req.body.user, 10),
+                    BandId: parseInt(req.body.band, 10)
+                }
+            }
+        ).then(function (updatedRating) {
+            console.log("updated rating");
+            console.log(updatedRating);
+            res.send({message: "ok"});
+        });
+        // var userToAdd = db.User.findOne({ where: { id: parseInt(req.body.userToAdd, 10) } });
+        // var bandToAdd = db.Band.findOne({ where: { id: parseInt(req.body.bandToAdd, 10) } });
+        // Promise.all([userToAdd, bandToAdd])
+        //     .then((results) => {
+        //         // console.log("got some!");
+        //         // console.log(results);
+        //         return results[0].addBand(results[1]);
+        //     })
+        //     .then((moreResults) => {
+        //         res.json(moreResults);
+        //     })
+        // res.json({});
+    });
+
+
     // TODO: Fix this this is broken now and doesn't really do anything
     app.get('/api/test/addmanytomany', function (req, res) {
         console.log("Here you are!");

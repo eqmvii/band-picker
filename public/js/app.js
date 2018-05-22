@@ -10,6 +10,10 @@ $(document).ready(() => {
 
     $('.ui.rating').rating({
         maxRating: 10
+    }).rating('setting', 'onRate', function(value){
+        console.log("wolf");
+        console.log($(this));
+        console.log(value);
     });
 
 

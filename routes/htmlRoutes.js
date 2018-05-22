@@ -45,11 +45,26 @@ module.exports = function (app) {
             // console.log(" % % % % % % ");
             // console.log(req.user);
             // console.log(" % % % % % % ");
-            var myBands = req.user.getBands();
+            // var myBands = req.user.getBands(
+            // TODO: Attone for this.
+            console.log(`User ID: ${req.user.id}`);
+            var myBands = db.User.findAll({
+                where: { id: parseInt(req.user.id, 10) },
+                include: [{
+                    model: db.Band,
+                    as: "Bands",
+                    through: {
+                        attributes: ["rating"]
+                    }
+                }]
+            });
             var allBands = db.Band.findAll({});
             Promise.all([myBands, allBands])
                 .then(function (results) {
-                    res.render("profile", { user: req.user, myBands: results[0], allBands: results[1] });
+                    console.log("% % % % % % % % % %");
+                    console.log(results[0][0].get({plain: true}));
+                    console.log(results[0][0].Bands[0].BandUser.get({plain: true}));
+                    res.render("profile", { user: req.user, myBands: results[0][0].Bands, allBands: results[1] });
                 });
         });
 
@@ -60,7 +75,7 @@ module.exports = function (app) {
         });
 
     app.get("/error", (req, res) => {
-        res.render("error", {user: req.user });
+        res.render("error", { user: req.user });
     });
 
 

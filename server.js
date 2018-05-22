@@ -38,8 +38,8 @@ passport.use(new Strategy(
     function (username, password, cb) {
         console.log(`checking ${username} and ${password}...`);
         db.User.findOne({ where: { username: username } }).then(user => {
-            console.log(`found: `);
-            console.log(user);
+            // console.log(`found: `);
+            // console.log(user);
             if (!user) { return cb(null, false); }
             if (user.password !== password) { return cb(null, false); }
             return cb(null, user);
@@ -47,14 +47,14 @@ passport.use(new Strategy(
     }));
 
 passport.serializeUser(function (user, cb) {
-    console.log(`serialize called with: `);
-    console.log(user);
+    // console.log(`serialize called with: `);
+    // console.log(user);
     cb(null, user.id);
 });
 
 passport.deserializeUser(function (id, cb) {
-    console.log(`deserialize called with :`);
-    console.log(id);
+    // console.log(`deserialize called with :`);
+    // console.log(id);
     db.User.findOne({ where: { id: id } }).then(user => {
         cb(null, user);
     })

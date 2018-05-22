@@ -2,6 +2,10 @@ $(document).ready(() => {
 
     console.log("profile js loaded");
 
+    $('.ui.rating').rating({
+        maxRating: 10
+    });
+
     $("#delete-all").on("click", function () {
         console.log("OHHH YOU CLICKED DELETE ALL");
         $.ajax({

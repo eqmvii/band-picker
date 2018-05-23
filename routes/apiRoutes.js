@@ -27,6 +27,7 @@ module.exports = function (app) {
 
     // currently wired up to expect POST directly from a form
     // TODO: Make this different and enforce uniqueness
+    // Use findOrCreate!
     app.post("/api/users", (req, res) => {
         if (req.body.username === "admin") {
             res.redirect("/error");
@@ -148,7 +149,6 @@ module.exports = function (app) {
                     }
                 }).then(function (response) {
                     console.log("Tried to delete everything");
-                    // console.log(response);
                     res.end();
                 })
             });
@@ -163,11 +163,8 @@ module.exports = function (app) {
 
     // Respond with band data for one band when asked by the frontend
     app.get("/api/spotify/band/:name", function (req, res) {
-        // console.log("Band name request received");
         var bandName = req.params.name;
         walrus.artistSearch(bandName, function (result) {
-            // console.log("Found: ");
-            // console.log(result);
             res.json({ result: result });
         })
     });
@@ -178,14 +175,10 @@ module.exports = function (app) {
     //
 
     app.post("/api/banduser/", function (req, res) {
-        // console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
-        // console.log(req.body);
         var userToAdd = db.User.findOne({ where: { id: parseInt(req.body.userToAdd, 10) } });
         var bandToAdd = db.Band.findOne({ where: { id: parseInt(req.body.bandToAdd, 10) } });
         Promise.all([userToAdd, bandToAdd])
             .then((results) => {
-                // console.log("got some!");
-                // console.log(results);
                 return results[0].addBand(results[1]);
             })
             .then((moreResults) => {
@@ -194,14 +187,11 @@ module.exports = function (app) {
     });
 
     app.delete("/api/banduser/", function (req, res) {
-        // console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
-        // console.log(req.body);
+
         var userToRemove = db.User.findOne({ where: { id: parseInt(req.body.userToRemove, 10) } });
         var bandToRemove = db.Band.findOne({ where: { id: parseInt(req.body.bandToRemove, 10) } });
         Promise.all([userToRemove, bandToRemove])
             .then((results) => {
-                // console.log("got some!");
-                // console.log(results);
                 return results[0].removeBand(results[1]);
             })
             .then((moreResults) => {
@@ -214,8 +204,6 @@ module.exports = function (app) {
     //
 
     app.post("/api/rating", function (req, res) {
-        console.log("% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % gotcha");
-        console.log(req.body);
         db.BandUser.update(
             {
                 rating: parseInt(req.body.rating, 10)
@@ -246,38 +234,39 @@ module.exports = function (app) {
 
 
     // TODO: Fix this this is broken now and doesn't really do anything
-    app.get('/api/test/addmanytomany', function (req, res) {
-        console.log("Here you are!");
-        testObj = {
-            name: "hello",
-            testObj: true,
-            hmm: [1, 2, "hello", 3, [0, 1, 2], "dog"],
-            wellThen: 0
-        }
+    // app.get('/api/test/addmanytomany', function (req, res) {
+    //     console.log("Here you are!");
+    //     testObj = {
+    //         name: "hello",
+    //         testObj: true,
+    //         hmm: [1, 2, "hello", 3, [0, 1, 2], "dog"],
+    //         wellThen: 0
+    //     }
 
-        var admin = db.User.findOne({ where: { admin: true } });
-        var band = db.Band.findOne({ where: { name: 'adminTestBandTwo' } });
-        Promise.all([admin, band])
-            .then((results) => {
-                // TODO: Add the bad/user association call where did it go
-                console.log("woah!");
-                console.log(results);
-                res.json(results);
-            })
-    });
+    //     var admin = db.User.findOne({ where: { admin: true } });
+    //     var band = db.Band.findOne({ where: { name: 'adminTestBandTwo' } });
+    //     Promise.all([admin, band])
+    //         .then((results) => {
+    //             // TODO: Add the bad/user association call where did it go
+    //             console.log("woah!");
+    //             console.log(results);
+    //             res.json(results);
+    //         })
+    // });
 
-    app.get('/api/test/getmanytomany', function (req, res) {
-        db.User.findOne({ where: { admin: true } })
-            .then(function (results) {
-                console.log(results.get({ plain: true }));
-                var admin = results;
-                return admin.getBands(); // Note to self: return a promise for sane-then-chains
-            })
-            .then(function (results) {
-                console.log("Admin got with better nesting: ");
-                // console.log(results);
-                res.json(results);
-            })
+    // app.get('/api/test/getmanytomany', function (req, res) {
+    //     db.User.findOne({ where: { admin: true } })
+    //         .then(function (results) {
+    //             console.log(results.get({ plain: true }));
+    //             var admin = results;
+    //             return admin.getBands(); // Note to self: return a promise for sane-then-chains
+    //         })
+    //         .then(function (results) {
+    //             console.log("Admin got with better nesting: ");
+    //             // console.log(results);
+    //             res.json(results);
+    //         })
 
-    });
+    // });
+
 };

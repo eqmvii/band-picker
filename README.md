@@ -28,11 +28,11 @@ This was originally based on an 'eat da burger' bootcamp exercise but took on a 
 # Todo List
 
 * Cache band images and/or URLs
-* Make mobile responsive
+* Make mobile responsive (ugh why is semantic ui like this)
 * Make times less terrible
-* Modals
-* Make login actually login
+* Modals - perhaps for registration?
+* Move login to the home page
 * Add notes about bands
 * Add band ratings DB integration
 * File upload security & restrictions
-
+* Build a band-specific page for each band

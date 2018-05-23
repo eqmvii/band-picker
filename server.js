@@ -8,7 +8,7 @@ var express_handlebars = require("express-handlebars");
 var bodyParser = require('body-parser');
 // Auth
 var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 // Database
 var db = require("./models");
 
@@ -34,7 +34,7 @@ app.set("view engine", "handlebars");
 // AUTH
 //
 
-passport.use(new Strategy(
+passport.use(new LocalStrategy(
     function (username, password, cb) {
         console.log(`checking ${username} and ${password}...`);
         db.User.findOne({ where: { username: username } }).then(user => {

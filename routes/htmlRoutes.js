@@ -19,6 +19,25 @@ module.exports = function (app) {
             });
     });
 
+    app.post("/api/users", (req, res) => {
+        if (req.body.username === "admin") {
+            res.redirect("/error");
+        } else {
+            db.User.create({ // TODO: Change to find-or-create
+                username: req.body.username,
+                password: req.body.password
+            }).then(function (newUser) {
+                console.log("New user!");
+                console.log(newUser);
+                // res.redirect("/");
+                req.login(newUser, function(err) { // from passport, allows login when/as needed
+                    if (err) { return next(err); }
+                    return res.redirect('/profile');
+                  });
+            });
+        }
+    });
+
     app.get("/login", (req, res) => {
         res.render("login");
     });
@@ -62,7 +81,7 @@ module.exports = function (app) {
             Promise.all([myBands, allBands])
                 .then(function (results) {
                     console.log("% % % % % % % % % %");
-                    console.log(results[0][0].get({plain: true}));
+                    console.log(results[0][0].get({ plain: true }));
                     // console.log(results[0][0].Bands[0].BandUser.get({plain: true}));
                     res.render("profile", { user: req.user, myBands: results[0][0].Bands, allBands: results[1] });
                 });

@@ -93,7 +93,7 @@ module.exports = function (app) {
     app.get('/upload',
         require('connect-ensure-login').ensureLoggedIn('/login'),
         function (req, res) {
-            res.render("upload", { user: req.user });
+            res.render("upload", { user: req.user, cssLink: "css/upload.css" });
         });
 
     app.get("/error", (req, res) => {

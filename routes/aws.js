@@ -13,6 +13,7 @@ module.exports = function (app) {
         require('connect-ensure-login').ensureLoggedIn('/login'),
         (req, res) => {
             console.log("Sign-s3 route hit");
+            // TODO: Add language preventing certain file types?
             const s3 = new aws.S3();
             const fileName = "u" + req.user.id + "p" + PORT + "r" + Math.floor(Math.random() * 100) + "f" + req.query['file-name'];
             const fileType = req.query['file-type'];
@@ -25,6 +26,7 @@ module.exports = function (app) {
             };
 
             console.log(s3Params);
+
 
             s3.getSignedUrl('putObject', s3Params, (err, data) => {
                 if (err) {

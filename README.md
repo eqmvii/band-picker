@@ -33,6 +33,5 @@ This was originally based on an 'eat da burger' bootcamp exercise but took on a 
 * Modals - perhaps for registration?
 * Move login to the home page
 * Add notes about bands
-* Add band ratings DB integration
 * File upload security & restrictions
 * Build a band-specific page for each band

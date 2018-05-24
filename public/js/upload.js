@@ -5,9 +5,13 @@ $(document).ready(() => {
     document.getElementById("file-input").onchange = () => {
         const files = document.getElementById('file-input').files;
         const file = files[0];
-        if (file == null) {
-            return alert('No file selected.');
+        var extension = file.name.split('.').pop();
+        var valid_extensions = ['jpg', 'png', 'gif'];
+        if (!file || valid_extensions.indexOf(extension.toLowerCase()) === -1 || file.size > 900000) {
+            alert("File upload error. Try another small image file.");
+            return
         }
+
         getSignedRequest(file);
 
         function getSignedRequest(file) {

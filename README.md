@@ -1,8 +1,12 @@
-# Node/Express Authentication Starter
+# Band Picker
 
 A simple app built to learn/practice sequelize, MySQL, handlebars, express, passport.js, etc.
 
-Now it's kind of about making a schedule for a music festival
+Now it's kind of about making a schedule for a music festival. It's a work in progress!
+
+Here's what it looked like as of 5/24/2018:
+
+[5/24/2018 homepage](screenshots\5242018homepage.png)
 
 [Live on Heroku](https://burger-eater-eqmvii.herokuapp.com)
 

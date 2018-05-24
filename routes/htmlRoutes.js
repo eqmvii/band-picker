@@ -1,11 +1,7 @@
 var db = require("../models");
 var passport = require('passport');
 
-
-
-
 module.exports = function (app) {
-
 
     app.get("/", (req, res) => {
         Promise.all([db.User.findAll({ where: { admin: false } }), db.Band.findAll({})])
@@ -19,23 +15,30 @@ module.exports = function (app) {
             });
     });
 
+    // Create Account Route
     app.post("/api/users", (req, res) => {
-        if (req.body.username === "admin") {
-            res.redirect("/error");
-        } else {
-            db.User.create({ // TODO: Change to find-or-create
+        db.User.findOrCreate({
+            where: {
+                username: req.body.username
+            }, defaults: {
                 username: req.body.username,
                 password: req.body.password
-            }).then(function (newUser) {
+            }
+        }).spread((newUser, created) => {
+            if (created) {
                 console.log("New user!");
                 console.log(newUser);
                 // res.redirect("/");
-                req.login(newUser, function(err) { // from passport, allows login when/as needed
+                req.login(newUser, function (err) { // from passport, allows login ad hoc
                     if (err) { return next(err); }
                     return res.redirect('/profile');
-                  });
-            });
-        }
+                });
+            } else {
+                console.log("User already exists");
+                return res.redirect('/error');
+            }
+
+        });
     });
 
     app.get("/login", (req, res) => {
@@ -65,7 +68,7 @@ module.exports = function (app) {
             // console.log(req.user);
             // console.log(" % % % % % % ");
             // var myBands = req.user.getBands(
-            // TODO: Attone for this.
+            // TODO: Atone for this.
             console.log(`User ID: ${req.user.id}`);
             var myBands = db.User.findAll({
                 where: { id: parseInt(req.user.id, 10) },

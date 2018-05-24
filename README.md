@@ -6,7 +6,7 @@ Now it's kind of about making a schedule for a music festival. It's a work in pr
 
 Here's what it looked like as of 5/24/2018:
 
-[5/24/2018 homepage](screenshots\5242018homepage.png)
+![5/24/2018 homepage](screenshots/5242018homepage.png)
 
 [Live on Heroku](https://burger-eater-eqmvii.herokuapp.com)
 

@@ -36,25 +36,24 @@ app.set("view engine", "handlebars");
 
 passport.use(new LocalStrategy(
     function (username, password, cb) {
-        console.log(`checking ${username} and ${password}...`);
         db.User.findOne({ where: { username: username } }).then(user => {
-            // console.log(`found: `);
-            // console.log(user);
-            if (!user) { return cb(null, false); }
-            if (user.password !== password) { return cb(null, false); }
-            return cb(null, user);
+            if (!user) {
+                return cb(null, false);
+            }
+            user.validPassword(password, function (res) {
+                if (!res) {
+                    return cb(null, false);
+                }
+                return cb(null, user);
+            });
         });
     }));
 
 passport.serializeUser(function (user, cb) {
-    // console.log(`serialize called with: `);
-    // console.log(user);
     cb(null, user.id);
 });
 
 passport.deserializeUser(function (id, cb) {
-    // console.log(`deserialize called with :`);
-    // console.log(id);
     db.User.findOne({ where: { id: id } }).then(user => {
         cb(null, user);
     })
@@ -82,6 +81,6 @@ require("./routes/aws.js")(app);
 
 db.sequelize.sync().then(function () {
     app.listen(PORT, () => {
-        console.log(`Server listening on port ${PORT}`);
+        console.log(`@ @ @ @ @ @ @ @ @ Server running on port ${PORT} @ @ @ @ @ @ @ @ @ @ @`);
     });
 });

@@ -11,14 +11,16 @@
     <div class="content">
       {{!--
       <img id="band-{{this.id}}" data-js-name="{{this.name}}" src="" class="js-band-image right floated mini ui rounded image"></img> --}}
-      <div class="header">{{this.name}} {{!--
-        <i class="music icon"></i> --}}
+      <div class="header">
+        <a href="/band/{{this.id}}">
+          {{this.name}}
+        </a>
       </div>
 
     </div>
 
     <div class="content">
-      <h4 class="ui sub header">Artist</h4>
+
       <div class="ui small feed">
 
         <div class="event">
@@ -65,7 +67,9 @@
         <i class="icon trash"></i> Remove Band</button>
     </div>
   </div>
+
   {{/each}}
+
 </div>
 
 <hr />

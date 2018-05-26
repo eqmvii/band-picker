@@ -111,6 +111,15 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/band/:id", (req, res) => {
+        console.log(`Get band ${req.params.id}`);
+        db.Band.findOne({
+            where: { id: req.params.id }
+        }).then(function (results) {
+            res.render("bands/band", { band: results });
+        });
+    });
+
 
     //
     // HANDLEBARS HELPER FUNCTIONS

@@ -1,0 +1,18 @@
+<div>
+
+
+    {{#if band}}
+    <h1>Welcome to the page for {{band.name}}</h1>
+    <ul>
+        <li>{{band.name}}</li>
+        <li>{{band.stage}}</li>
+        <li>{{band.time}}</li>
+        <li>{{band.day}}</li>
+
+    </ul>
+    {{/if}} {{#else}}
+    <h1>YOU ARE IN THE WRONG PLACE MISTER</h1>
+    <p>This band does not exist.</p>
+    {{/else}}
+
+</div>

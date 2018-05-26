@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     day: DataTypes.STRING
   }, {});
 
+  // TODO: Add function to return better formatted time
+
   Band.associate = function(models) {
     Band.belongsToMany(models.User, {through: 'BandUser'});
   };

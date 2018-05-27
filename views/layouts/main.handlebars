@@ -10,10 +10,8 @@
 
 	<!-- Semantic UI CSS -->
 	<link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
-	<link rel="stylesheet" type="text/css" href="/semantic/components/rating.min.css">
-	{{#if cssLink}}
-		<link rel="stylesheet" type="text/css" href="/{{cssLink}}">
-	{{/if}}
+	<link rel="stylesheet" type="text/css" href="/semantic/components/rating.min.css"> {{#if cssLink}}
+	<link rel="stylesheet" type="text/css" href="/{{cssLink}}"> {{/if}}
 
 	<!-- Semantic UI JS -->
 	<script src="/semantic/semantic.min.js"></script>
@@ -21,6 +19,9 @@
 
 	<!-- custom -->
 	<link rel="stylesheet" type="text/css" href="/css/burgerEater.css">
+
+	<!-- favicon -->
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -78,9 +79,11 @@
 		</div>
 	</div>
 
-	{{!-- <div class="ui fluid">
+	{{!--
+	<div class="ui fluid">
 		<h1 class="ui center aligned header">Band Picker</h1>
-		<img src="https://s3.us-east-2.amazonaws.com/eqmvii-burgereater/arch.png" class=" ui centered medium rounded bordered image" />
+		<img src="https://s3.us-east-2.amazonaws.com/eqmvii-burgereater/arch.png" class=" ui centered medium rounded bordered image"
+		/>
 	</div> --}}
 
 	<div class="landing-image">
@@ -96,7 +99,9 @@
 		<br />
 		<h4 class="ui center aligned header">
 			By
-			<a href="https://github.com/eqmvii">Eric Mancini <i class="github icon"></i></a>
+			<a href="https://github.com/eqmvii">Eric Mancini
+				<i class="github icon"></i>
+			</a>
 		</h4>
 		<br/>
 

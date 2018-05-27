@@ -1,6 +1,5 @@
 $(document).ready(() => {
-
-    console.log("profile js loaded");
+    console.log("profile.js loaded");
 
 
     $('.ui.rating').rating({

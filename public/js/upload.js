@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    console.log("upload.js loaded");
 
     // boilerplate from: https://devcenter.heroku.com/articles/s3-upload-node
     // TODO: Do you need encodeURIComponent(file.name) ?

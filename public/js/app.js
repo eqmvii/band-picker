@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    console.log(`document loaded; JS linked!`);
+    console.log(`app.js linked!`);
 
 
     //

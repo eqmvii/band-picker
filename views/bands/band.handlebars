@@ -3,6 +3,11 @@
 
     {{#if band}}
     <h1>Welcome to the page for {{band.name}}</h1>
+    <p><img class="ui medium rounded image" data-js-name="{{band.name}}" src="" />
+    </p>
+    <p>
+        <a data-js-spotify-url="{{band.name}}" href=""></a>
+    </p>
     <ul>
         <li>{{band.name}}</li>
         <li>{{band.stage}}</li>
@@ -18,4 +23,3 @@
 </div>
 
 <script src="/js/band.js" type="text/javascript"></script>
-

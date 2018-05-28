@@ -38,7 +38,6 @@ This was originally based on an 'eat da burger' bootcamp exercise but took on a 
 * Move login to the home page
 * Add notes about bands
 * File upload security & restrictions
-* Build a band-specific page for each band
 * Add comments and comment voting for each band
 * Add friending feature
 * Add posts

@@ -43,7 +43,9 @@
         <div class="event">
           <div class="content">
             <div class="summary">
-              {{getFormattedTimeString this.time}}
+              <p>{{getFormattedTimeString this.time}}</p>
+              {{!-- TODO: Remove this  --}}
+              <p>{{this.getHours}}</p>
             </div>
           </div>
         </div>

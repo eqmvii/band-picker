@@ -67,6 +67,13 @@ app.use(passport.session());
 // ROUTES
 //
 
+// TODO: Consider this for serving production React on Heroku
+/*
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
+*/
+
 app.use(express.static('public'));
 
 require("./routes/apiRoutes.js")(app);

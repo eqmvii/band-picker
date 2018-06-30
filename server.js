@@ -68,11 +68,13 @@ app.use(passport.session());
 //
 
 // TODO: Consider this for serving production React on Heroku
-/*
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
+if (PORT === 4000) {
+    console.log("%%%% REACT READY");
+    app.use('/react', express.static("client/build"));
+    app.get("/react/home", (req, res) => {
+        res.sendfile("client/build/index.html");
+    });
 }
-*/
 
 app.use(express.static('public'));
 

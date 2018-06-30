@@ -214,6 +214,17 @@ module.exports = function (app) {
         // res.json({});
     });
 
+    //
+    // REACT TEST ROUTES
+    //
+
+
+    // Routes to test connectivity with React frontend
+    app.get("/react/test", function (req, res) {
+        console.log('Got an AJAX request from React!');
+         res.json({ success: true, message: 'this message came from the express server' });
+    });
+
 
     // TODO: Fix this this is broken now and doesn't really do anything
     // app.get('/api/test/addmanytomany', function (req, res) {

@@ -8,6 +8,7 @@
     "start": "node server.js",
     "develop": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
+    "build": "cd client && npm run build",
     "push": "git push origin master && git push heroku master && heroku open && heroku logs --tail"
   },
   "repository": {

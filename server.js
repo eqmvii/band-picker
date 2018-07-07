@@ -67,6 +67,8 @@ app.use(passport.session());
 // ROUTES
 //
 
+require("./routes/reactAdminRoutes.js")(app);
+
 
 // This looks in the build folder for the compiled react application
 // enabled by this line in package.json:

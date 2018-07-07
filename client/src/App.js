@@ -7,6 +7,7 @@ class App extends Component {
   state = {message: 'no message received'}
 
   componentDidMount() {
+    console.log(`PROPS: `, this.props);
     console.log('requesting from React test');
     axios.get("/react/test")
       .then((data) => {

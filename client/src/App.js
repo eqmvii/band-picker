@@ -21,6 +21,7 @@ class App extends Component {
     console.log(this.state);
     return (
       <div className="App">
+      <h1>Hello, {this.props.username}</h1>
       {this.state.message}
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />

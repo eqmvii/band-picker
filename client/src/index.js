@@ -5,8 +5,9 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 var element = document.getElementById("react-data-username");
+var username = element.dataset.name;
 console.log(element.dataset.name);
 //     <span id="react-data-username" data-name="Eric"></span>
 
-ReactDOM.render(<App user="Eric"/>, document.getElementById('root'));
+ReactDOM.render(<App username={username}/>, document.getElementById('root'));
 // registerServiceWorker();
